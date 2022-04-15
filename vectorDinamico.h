@@ -57,8 +57,9 @@ void incrementSize();						//Aumenta var global _size.
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIARES
 void allocateMemory(struct Vector v, int capacity){
+	v._size = 0;
 	v._capacity = capacity;
-	v.p = (int *)calloc(capacity,1);
+	v.p = (int *)calloc(capacity,sizeof(int));
 }
 /*
 void incrementSize(){
