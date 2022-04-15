@@ -12,6 +12,7 @@ int main(){
 		push(vector,i+1);
 		printf("%d, ", at(vector,i));
 	}
+	printf("%d\n", _size);
 
 
 	return 0;
