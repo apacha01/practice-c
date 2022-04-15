@@ -46,7 +46,13 @@ void removeAll(int/*valor*/);				//Elimina todas las coincidencias de valor.
 int find(int/*valor*/);						//Busca valor y devuelve el primer índice que coincida. -1 si no encuentra.
 void resize(int/*nueva capacidad*/);		//Crea nuevo array con nueva capacidad y devuelve el puntero al nuevo array.
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
+int size(){
+	return _size;
+}
 
+int capacity(){
+	return _capacity;
+}
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 
 
