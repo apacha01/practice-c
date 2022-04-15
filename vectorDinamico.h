@@ -30,13 +30,18 @@
 //////////////////////////////////////////////////DEFINES////////////////////////////////////////////////////////////////
 #define resizeFactor 2
 //////////////////////////////////////////////////VARIABLES GLOBALES/////////////////////////////////////////////////////
-int _size = 0, _capacity = 0;
+struct Vector
+{
+	int *p;
+	int _size;
+	int _capacity;
+};
 //////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES////////////////////////////////////////////////
 //DE LAS CONSIGNAS
 int	size();									//Devuelve el tamaño del array.
 int capacity();								//Devuelve la máxima capacidad del array.
 bool isEmpty();								//true si esta vacio, false si no.
-int at(int */*vector*/, int/*índice*/);		//Devuelve el valor en índice.
+int at(struct Vector, int/*índice*/);		//Devuelve el valor en índice.
 void push(int */*vector*/, int/*valor*/);	//Inserta valor al final del array.
 void insert(int/*indice*/, int/*valor*/);	//Inserta valor en índice y mueve los valores que le sigan a la derecha.
 void prepend(int/*valor*/);					//Inserta valor al inicio del array.
@@ -47,23 +52,24 @@ int find(int/*valor*/);						//Busca valor y devuelve el primer índice que coin
 void resize(int/*nueva capacidad*/);		//Cambia el tamaño del array.
 
 //AUXILIARES
-int* allocateMemory(int/*capacidad*/);		//Reserva el espacio en memoria para el array.
+void allocateMemory(struct Vector, int/*capacidad*/);		//Reserva el espacio en memoria para el array.
 void incrementSize();						//Aumenta var global _size.
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIARES
-int* allocateMemory(int capacity){
-	_capacity = capacity;
-	return (int *)calloc(capacity,1);
+void allocateMemory(struct Vector v, int capacity){
+	v._capacity = capacity;
+	v.p = (int *)calloc(capacity,1);
 }
-
+/*
 void incrementSize(){
 	_size++;
 	if (_size == _capacity)
 	{
-		/* resize */
+		
 	}
-}
+}*/
 //DE LAS CONSIGNAS
+/*
 int size(){
 	return _size;
 }
@@ -76,14 +82,14 @@ bool isEmpty(){
 	return size() == 0;
 }
 
-int at(int *ptr, int index){
-	return *(ptr+index);
+int at(struct Vector, int index){
+	return *(Vector.p+index);
 }
 
 void push(int *ptr, int item){
 	*(ptr+size()) = item;
 	incrementSize();
-}
+}*/
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 
 
