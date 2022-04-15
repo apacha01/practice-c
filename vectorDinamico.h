@@ -37,7 +37,7 @@ int	size();									//Devuelve el tamaño del array.
 int capacity();								//Devuelve la máxima capacidad del array.
 bool isEmpty();								//true si esta vacio, false si no.
 int at(int */*vector*/,int /*índice*/);		//Devuelve el valor en índice.
-void push(int/*valor*/);					//Inserta valor al final del array.
+void push(int */*vector*/int/*valor*/);		//Inserta valor al final del array.
 void insert(int/*indice*/, int/*valor*/);	//Inserta valor en índice y mueve los valores que le sigan a la derecha.
 void prepend(int/*valor*/);					//Inserta valor al inicio del array.
 int pop();									//Elimina el último valor y lo devuelve.
@@ -48,6 +48,7 @@ void resize(int/*nueva capacidad*/);		//Cambia el tamaño del array.
 
 //AUXILIARES
 int* allocateMemory(int/*capacidad*/);		//Reserva el espacio en memoria para el array.
+void incrementSize();						//Aumenta var global _size.
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIARES
 int* allocateMemory(int capacity){
@@ -71,6 +72,11 @@ bool isEmpty(){
 
 int at(int *ptr, int index){
 	return *(ptr+index);
+}
+
+void push(int *ptr, int item){
+	*(ptr+size()) = item;
+	incrementSize();
 }
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 
