@@ -5,6 +5,7 @@
 
 int main(){
 	int *vector;
+	vector = allocateMemory(16);
 
 
 	return 0;

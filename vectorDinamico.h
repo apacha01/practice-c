@@ -28,11 +28,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 //////////////////////////////////////////////////DEFINES////////////////////////////////////////////////////////////////
-#define initalLengthArr 16
 #define resizeFactor 2
 //////////////////////////////////////////////////VARIABLES GLOBALES/////////////////////////////////////////////////////
 int _size = 0, _capacity = 0;
 //////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES////////////////////////////////////////////////
+//DE LAS CONSIGNAS
 int	size();									//Devuelve el tamaño del array.
 int capacity();								//Devuelve la máxima capacidad del array.
 bool isEmpty();								//true si esta vacio, false si no.
@@ -44,8 +44,19 @@ int pop();									//Elimina el último valor y lo devuelve.
 void erase(int/*índice*/);					//Elimina valor en índice y mueve los valores siguientes a la izquierda.
 void removeAll(int/*valor*/);				//Elimina todas las coincidencias de valor.
 int find(int/*valor*/);						//Busca valor y devuelve el primer índice que coincida. -1 si no encuentra.
-void resize(int/*nueva capacidad*/);		//Crea nuevo array con nueva capacidad y devuelve el puntero al nuevo array.
+void resize(int/*nueva capacidad*/);		//Cambia el tamaño del array.
+
+//AUXILIARES
+int* allocateMemory(int/*capacidad*/);		//Reserva el espacio en memoria para el array.
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
+//AUXILIARES
+int* allocateMemory(int capacity){
+	_capacity = capacity;
+	return (int *)calloc(capacity,1);
+}
+
+
+//DE LAS CONSIGNAS
 int size(){
 	return _size;
 }
