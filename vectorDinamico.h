@@ -33,8 +33,8 @@
 struct Vector
 {
 	int *p;
-	int _size;
-	int _capacity;
+	int *_size;
+	int *_capacity;
 };
 //////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES////////////////////////////////////////////////
 //DE LAS CONSIGNAS
@@ -51,35 +51,21 @@ void resize(int/*nueva capacidad*/);		//Cambia el tamaño del array.
 
 //AUXILIARES
 void allocateMemory(struct Vector, int/*capacidad*/);		//Reserva el espacio en memoria para el array.
-void incrementSize();										//Aumenta var global _size.
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIARES
 void allocateMemory(struct Vector v, int capacity){
-	v._size = 0;
-	v._capacity = capacity;
+	*v._size = 0;
+	*v._capacity = (int)capacity;
 	v.p = (int *)calloc(capacity,sizeof(int));
 }
-/*
-void incrementSize(){
-	_size++;
-	if (_size == _capacity)
-	{
-		
-	}
-}*/
+
 //DE LAS CONSIGNAS
-/*
-bool isEmpty(){
-	return size() == 0;
-}
-*/
 int at(struct Vector v, int index){
 	return *(v.p+index);
 }
 
 void push(struct Vector v, int item){
-	*(v.p+v._size) = item;
-	//incrementSize();
+	*(v.p+*v._size) = item;
 }
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 
