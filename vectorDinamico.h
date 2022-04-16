@@ -38,11 +38,9 @@ struct Vector
 };
 //////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES////////////////////////////////////////////////
 //DE LAS CONSIGNAS
-int	size();									//Devuelve el tamaño del array.
-int capacity();								//Devuelve la máxima capacidad del array.
 bool isEmpty();								//true si esta vacio, false si no.
 int at(struct Vector, int/*índice*/);		//Devuelve el valor en índice.
-void push(int */*vector*/, int/*valor*/);	//Inserta valor al final del array.
+void push(struct Vector, int */*vector*/, int/*valor*/);	//Inserta valor al final del array.
 void insert(int/*indice*/, int/*valor*/);	//Inserta valor en índice y mueve los valores que le sigan a la derecha.
 void prepend(int/*valor*/);					//Inserta valor al inicio del array.
 int pop();									//Elimina el último valor y lo devuelve.
@@ -53,7 +51,7 @@ void resize(int/*nueva capacidad*/);		//Cambia el tamaño del array.
 
 //AUXILIARES
 void allocateMemory(struct Vector, int/*capacidad*/);		//Reserva el espacio en memoria para el array.
-void incrementSize();						//Aumenta var global _size.
+void incrementSize();										//Aumenta var global _size.
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIARES
 void allocateMemory(struct Vector v, int capacity){
@@ -71,26 +69,18 @@ void incrementSize(){
 }*/
 //DE LAS CONSIGNAS
 /*
-int size(){
-	return _size;
-}
-
-int capacity(){
-	return _capacity;
-}
-
 bool isEmpty(){
 	return size() == 0;
 }
-
-int at(struct Vector, int index){
-	return *(Vector.p+index);
+*/
+int at(struct Vector v, int index){
+	return *(v.p+index);
 }
 
-void push(int *ptr, int item){
-	*(ptr+size()) = item;
-	incrementSize();
-}*/
+void push(struct Vector v, int item){
+	*(v.p+v._size) = item;
+	//incrementSize();
+}
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 
 
