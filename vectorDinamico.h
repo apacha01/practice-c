@@ -145,7 +145,7 @@ void removeAll(struct Vector *v, int item){
 		{
 			erase(v,i);
 			if (i > 0) {
-				i--;
+				i -= 2;
 			}
 		}
 	}
