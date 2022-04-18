@@ -88,7 +88,9 @@ void moveTo(struct Vector *v, int index, char c){
 		}
 	}
 	if (c == 'l') {
-		//mover a izq
+		for (int i = index; i < size(v) - 1; i++) {
+			*(v->p + i) = *(v->p + i + 1);
+		}
 	}
 }
 
@@ -129,6 +131,15 @@ int pop(struct Vector *v){
 	*(v->p + size(v) - 1) = 0;
 	decrementSize(v);
 	return a;
+}
+
+void erase(struct Vector *v, int index){
+	moveTo(v,index,'l');
+	decrementSize(v);
+}
+
+void removeAll(struct Vector *v, int item){
+
 }
 
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////

@@ -23,6 +23,7 @@ int main(){
 
 	insert(v,3,135);
 	prepend(v,67);
+	erase(v,1);
 
 	printf("\n%d\n", at(v,0));
 	printf("%d\n", at(v,1));
@@ -31,7 +32,7 @@ int main(){
 	printf("%d\n", at(v,4));
 	printf("%d\n", at(v,5));
 
-	printf("%d\n", pop(v));
+	printf("\n%d\n", pop(v));
 
 	printf("\n%d\n", size(v));
 	printf("%d\n", isEmpty(v));
