@@ -53,19 +53,23 @@ void resize(int/*nueva capacidad*/);		//Cambia el tamaño del array.
 void allocateMemory(struct Vector, int/*capacidad*/);		//Reserva el espacio en memoria para el array.
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIARES
-void allocateMemory(struct Vector v, int capacity){
-	*v._size = 0;
-	*v._capacity = (int)capacity;
-	v.p = (int *)calloc(capacity,sizeof(int));
+void allocateMemory(struct Vector *v, int capacity){
+	v->p = (int *)malloc(capacity);
+	v->_size = (v->p)-1;
+	v->_size = (v->p)-2;
+
+	*v->_size = 0;
+	*v->_capacity = (int)capacity;
 }
 
 //DE LAS CONSIGNAS
-int at(struct Vector v, int index){
-	return *(v.p+index);
+int at(struct Vector *v, int index){
+	return *((v->p)+index);
 }
 
-void push(struct Vector v, int item){
-	*(v.p+*v._size) = item;
+void push(struct Vector *v, int item){
+	*((v->p)+*v->_size) = item;
+	*v->_size += 1;
 }
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 

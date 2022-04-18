@@ -2,14 +2,24 @@
 #include <stdlib.h>
 #include "vectorDinamico.h"
 
-
 int main(){
 	struct Vector v1;
-	//allocateMemory(v1,16);
+	struct Vector *v = &v1;
 
-	printf("%d\n", *v1._size);
-	printf("%d\n", *v1._capacity);
+	allocateMemory(v,16);
 
-	free(v1.p);
+	printf("%d\n", *v->p);
+	printf("%d\n", *v->_size);
+	printf("%d\n", *v->_capacity);
+
+	push(v,178);
+
+	printf("%d\n", *v->p);
+	printf("%d\n", *v->_size);
+	printf("%d\n", *v->_capacity);
+
+	printf("%d\n",at(v,0));
+
+	free(v->p);
 	return 0;
 }
