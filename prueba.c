@@ -25,6 +25,9 @@ int main(){
 	prepend(v,67);
 	erase(v,0);
 
+	printf("\n%d\n", find(v,135));
+	printf("%d\n", find(v,178));
+
 	printf("\n%d\n", at(v,0));
 	printf("%d\n", at(v,1));
 	printf("%d\n", at(v,2));

@@ -151,6 +151,18 @@ void removeAll(struct Vector *v, int item){
 	}
 }
 
+int find(struct Vector *v, int item){
+	
+	for (int i = 0; i < size(v); ++i) {
+		if (*(v->p + i) == item)
+		{
+			return i;
+		}
+	}
+
+	return -1;
+}
+
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 
 
