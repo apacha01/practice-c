@@ -139,7 +139,13 @@ void erase(struct Vector *v, int index){
 }
 
 void removeAll(struct Vector *v, int item){
-
+	for (int i = 0; i < size(v); ++i)
+	{
+		if (*(v->p+i) == item)
+		{
+			erase(v,i);
+		}
+	}
 }
 
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////

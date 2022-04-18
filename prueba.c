@@ -13,9 +13,9 @@ int main(){
 	printf("%d\n", capacity(v));
 
 	push(v,178);
-	push(v,12);
-	push(v,18);
-	push(v,78);
+	push(v,178);
+	push(v,178);
+	push(v,65);
 
 	printf("\n%d\n", at(v,0));
 	printf("%d\n", size(v));
@@ -23,7 +23,7 @@ int main(){
 
 	insert(v,3,135);
 	prepend(v,67);
-	erase(v,1);
+	erase(v,0);
 
 	printf("\n%d\n", at(v,0));
 	printf("%d\n", at(v,1));
@@ -31,6 +31,12 @@ int main(){
 	printf("%d\n", at(v,3));
 	printf("%d\n", at(v,4));
 	printf("%d\n", at(v,5));
+
+	removeAll(v,178);
+
+	printf("\n%d\n", at(v,0));
+	printf("%d\n", at(v,1));
+	printf("%d\n", at(v,2));
 
 	printf("\n%d\n", pop(v));
 
