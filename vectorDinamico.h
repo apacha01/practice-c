@@ -144,6 +144,9 @@ void removeAll(struct Vector *v, int item){
 		if (*(v->p+i) == item)
 		{
 			erase(v,i);
+			if (i > 0) {
+				i--;
+			}
 		}
 	}
 }
