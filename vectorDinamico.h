@@ -38,6 +38,8 @@ struct Vector
 };
 //////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES////////////////////////////////////////////////
 //DE LAS CONSIGNAS
+int size(struct Vector *);									//Devuelve size
+int capacity(struct Vector *);								//Devuelve capacity
 bool isEmpty(struct Vector*);								//true si esta vacio, false si no.
 int at(struct Vector*, int/*índice*/);						//Devuelve el valor en índice.
 void push(struct Vector*, int */*vector*/, int/*valor*/);	//Inserta valor al final del array.
@@ -68,6 +70,14 @@ void incrementSize(struct Vector *v){
 }
 
 //DE LAS CONSIGNAS
+int size(struct Vector *v){
+	return *v->_size;
+}
+
+int capacity(struct Vector *v){
+	return *v->_capacity;
+}
+
 bool isEmpty(struct Vector *v){
 	return *v->_size == 0;
 }

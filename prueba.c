@@ -8,9 +8,9 @@ int main(){
 
 	allocateMemory(v,16);
 
-	printf("%d\n", *v->p);
-	printf("%d\n", *v->_size);
-	printf("%d\n", *v->_capacity);
+	printf("%d\n", *v1.p);
+	printf("%d\n", size(v));
+	printf("%d\n", capacity(v));
 
 	push(v,178);
 
