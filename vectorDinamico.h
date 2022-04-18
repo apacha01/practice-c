@@ -110,11 +110,18 @@ void push(struct Vector *v, int item){
 	incrementSize(v);
 }
 
-void insert(struct Vector*v, int index, int item){
+void insert(struct Vector *v, int index, int item){
 	moveTo(v,index,'r');
 	*(v->p + index) = item;
 	incrementSize(v);
 }
+
+void prepend(struct Vector *v, int item){
+	insert(v,0,item);
+}
+
+
+
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 
 
