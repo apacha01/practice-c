@@ -59,7 +59,7 @@ void moveTo(struct Vector*, int, char);						//Mueve hacia izq o der (para inser
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIARES
 void allocateMemory(struct Vector *v, int capacity){
-	v->p = (int *)malloc(capacity);
+	v->p = (int *)calloc(capacity,1);
 	v->_size = (v->p)-1;
 	v->_size = (v->p)-2;
 
@@ -69,21 +69,25 @@ void allocateMemory(struct Vector *v, int capacity){
 
 void incrementSize(struct Vector *v){
 	*v->_size += 1;
-	if (*v->_size == *v->_capacity)
-	{
+	if (*v->_size == *v->_capacity) {
+		//resize
+	}
+}
+
+void decrementSize(struct Vector *v){
+	*v->_size -= 1;
+	if (*v->_size == ((*v->_capacity)/4)) {
 		//resize
 	}
 }
 
 void moveTo(struct Vector *v, int index, char c){
-	if (c == 'r')
-	{
+	if (c == 'r') {
 		for (int i = size(v); i > index; i--) {
 			*(v->p + i) = *(v->p + i-1);
 		}
 	}
-	if (c == 'l')
-	{
+	if (c == 'l') {
 		//mover a izq
 	}
 }
@@ -120,7 +124,12 @@ void prepend(struct Vector *v, int item){
 	insert(v,0,item);
 }
 
-
+int pop(struct Vector *v){
+	int a = *(v->p+size(v)-1);
+	*(v->p + size(v) - 1) = 0;
+	decrementSize(v);
+	return a;
+}
 
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 

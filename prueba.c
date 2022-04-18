@@ -31,6 +31,8 @@ int main(){
 	printf("%d\n", at(v,4));
 	printf("%d\n", at(v,5));
 
+	printf("%d\n", pop(v));
+
 	printf("\n%d\n", size(v));
 	printf("%d\n", isEmpty(v));
 
