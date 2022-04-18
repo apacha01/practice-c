@@ -38,9 +38,9 @@ struct Vector
 };
 //////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES////////////////////////////////////////////////
 //DE LAS CONSIGNAS
-bool isEmpty();								//true si esta vacio, false si no.
-int at(struct Vector, int/*índice*/);		//Devuelve el valor en índice.
-void push(struct Vector, int */*vector*/, int/*valor*/);	//Inserta valor al final del array.
+bool isEmpty(struct Vector*);								//true si esta vacio, false si no.
+int at(struct Vector*, int/*índice*/);						//Devuelve el valor en índice.
+void push(struct Vector*, int */*vector*/, int/*valor*/);	//Inserta valor al final del array.
 void insert(int/*indice*/, int/*valor*/);	//Inserta valor en índice y mueve los valores que le sigan a la derecha.
 void prepend(int/*valor*/);					//Inserta valor al inicio del array.
 int pop();									//Elimina el último valor y lo devuelve.
@@ -50,7 +50,8 @@ int find(int/*valor*/);						//Busca valor y devuelve el primer índice que coin
 void resize(int/*nueva capacidad*/);		//Cambia el tamaño del array.
 
 //AUXILIARES
-void allocateMemory(struct Vector, int/*capacidad*/);		//Reserva el espacio en memoria para el array.
+void allocateMemory(struct Vector*, int/*capacidad*/);		//Reserva el espacio en memoria para el array.
+void incrementSize(struct Vector*);
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIARES
 void allocateMemory(struct Vector *v, int capacity){
@@ -62,14 +63,22 @@ void allocateMemory(struct Vector *v, int capacity){
 	*v->_capacity = (int)capacity;
 }
 
+void incrementSize(struct Vector *v){
+	*v->_size += 1;
+}
+
 //DE LAS CONSIGNAS
+bool isEmpty(struct Vector *v){
+	return *v->_size == 0;
+}
+
 int at(struct Vector *v, int index){
 	return *((v->p)+index);
 }
 
 void push(struct Vector *v, int item){
 	*((v->p)+*v->_size) = item;
-	*v->_size += 1;
+	incrementSize(v);
 }
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 

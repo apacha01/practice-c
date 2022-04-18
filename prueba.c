@@ -19,6 +19,7 @@ int main(){
 	printf("%d\n", *v->_capacity);
 
 	printf("%d\n",at(v,0));
+	printf("%d\n", isEmpty(v));
 
 	free(v->p);
 	return 0;
