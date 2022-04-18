@@ -78,7 +78,9 @@ void incrementSize(struct Vector *v){
 void moveTo(struct Vector *v, int index, char c){
 	if (c == 'r')
 	{
-		//mover a der
+		for (int i = size(v); i > index; i--) {
+			*(v->p + i) = *(v->p + i-1);
+		}
 	}
 	if (c == 'l')
 	{

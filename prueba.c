@@ -13,6 +13,9 @@ int main(){
 	printf("%d\n", capacity(v));
 
 	push(v,178);
+	push(v,12);
+	push(v,18);
+	push(v,78);
 
 	printf("%d\n", at(v,0));
 	printf("%d\n", size(v));
@@ -21,6 +24,12 @@ int main(){
 	insert(v,0,135);
 
 	printf("%d\n", at(v,0));
+	printf("%d\n", at(v,1));
+	printf("%d\n", at(v,2));
+	printf("%d\n", at(v,3));
+	printf("%d\n", at(v,4));
+
+	printf("%d\n", size(v));
 	printf("%d\n", isEmpty(v));
 
 	free(v->p);
