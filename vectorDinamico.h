@@ -38,22 +38,24 @@ struct Vector
 };
 //////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES////////////////////////////////////////////////
 //DE LAS CONSIGNAS
-int size(struct Vector *);									//Devuelve size
-int capacity(struct Vector *);								//Devuelve capacity
+int size(struct Vector*);									//Devuelve size
+int capacity(struct Vector*);								//Devuelve capacity
 bool isEmpty(struct Vector*);								//true si esta vacio, false si no.
 int at(struct Vector*, int/*índice*/);						//Devuelve el valor en índice.
-void push(struct Vector*, int */*vector*/, int/*valor*/);	//Inserta valor al final del array.
-void insert(int/*indice*/, int/*valor*/);	//Inserta valor en índice y mueve los valores que le sigan a la derecha.
-void prepend(int/*valor*/);					//Inserta valor al inicio del array.
-int pop();									//Elimina el último valor y lo devuelve.
-void erase(int/*índice*/);					//Elimina valor en índice y mueve los valores siguientes a la izquierda.
-void removeAll(int/*valor*/);				//Elimina todas las coincidencias de valor.
-int find(int/*valor*/);						//Busca valor y devuelve el primer índice que coincida. -1 si no encuentra.
-void resize(int/*nueva capacidad*/);		//Cambia el tamaño del array.
+void push(struct Vector*, int*/*vector*/, int/*valor*/);	//Inserta valor al final del array.
+void insert(struct Vector*, int/*indice*/, int/*valor*/);	//Inserta valor en índice y mueve los valores que le sigan a la derecha.
+void prepend(struct Vector*, int/*valor*/);					//Inserta valor al inicio del array.
+int pop(struct Vector*);									//Elimina el último valor y lo devuelve.
+void erase(struct Vector*, int/*índice*/);					//Elimina valor en índice y mueve los valores siguientes a la izquierda.
+void removeAll(struct Vector*, int/*valor*/);				//Elimina todas las coincidencias de valor.
+int find(struct Vector*, int/*valor*/);						//Busca valor y devuelve el primer índice que coincida. -1 si no encuentra.
+void resize(struct Vector*, int/*nueva capacidad*/);		//Cambia el tamaño del array.
 
 //AUXILIARES
 void allocateMemory(struct Vector*, int/*capacidad*/);		//Reserva el espacio en memoria para el array.
-void incrementSize(struct Vector*);
+void incrementSize(struct Vector*);							//Incrementa size y resize si es necesario.
+void decrementSize(struct Vector*);							//Decrementa size y resize si es necesario.
+void moveTo(struct Vector*, int, char);						//Mueve hacia izq o der (para insert y delete).
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIARES
 void allocateMemory(struct Vector *v, int capacity){
@@ -67,6 +69,21 @@ void allocateMemory(struct Vector *v, int capacity){
 
 void incrementSize(struct Vector *v){
 	*v->_size += 1;
+	if (*v->_size == *v->_capacity)
+	{
+		//resize
+	}
+}
+
+void moveTo(struct Vector *v, int index, char c){
+	if (c == 'r')
+	{
+		//mover a der
+	}
+	if (c == 'l')
+	{
+		//mover a izq
+	}
 }
 
 //DE LAS CONSIGNAS
@@ -88,6 +105,12 @@ int at(struct Vector *v, int index){
 
 void push(struct Vector *v, int item){
 	*((v->p)+*v->_size) = item;
+	incrementSize(v);
+}
+
+void insert(struct Vector*v, int index, int item){
+	moveTo(v,index,'r');
+	*(v->p + index) = item;
 	incrementSize(v);
 }
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
