@@ -163,7 +163,8 @@ int find(struct Vector *v, int item){
 
 void resize(struct Vector *v, int newCapacity){
 	*v->_capacity = newCapacity;
-	v->p = (int *)realloc(v->p, newCapacity);
+	free(v->p);
+	v->p = (int *)calloc(newCapacity, 1);
 }
 
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
