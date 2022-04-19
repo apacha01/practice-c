@@ -38,7 +38,7 @@ struct Vector
 	int *_capacity;
 };
 //////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES////////////////////////////////////////////////
-//DE LAS CONSIGNAS						//PARA USO DEL PROGRAMADOR
+//DE LAS CONSIGNAS
 int size(struct Vector*);									//Devuelve size
 int capacity(struct Vector*);								//Devuelve capacity
 bool isEmpty(struct Vector*);								//true si esta vacio, false si no.
@@ -53,7 +53,7 @@ int find(struct Vector*, int/*valor*/);						//Busca valor y devuelve el primer 
 void resize(struct Vector*, int/*nueva capacidad*/);		//Cambia el tamaño del array.
 void init(struct Vector*);									//Inicializa el vector dinámico (reserva el espacio en memoria).
 
-//AUXILIARES							//NO SON PARA USO DEL PROGRAMADOR
+//AUXILIARES
 void incrementSize(struct Vector*);							//Incrementa size y resize si es necesario.
 void decrementSize(struct Vector*);							//Decrementa size y resize si es necesario.
 void moveTo(struct Vector*, int, char);						//Mueve hacia izq o der (para insert y delete).
