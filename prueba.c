@@ -6,14 +6,18 @@ int main(){
 	struct Vector v1;
 	struct Vector *v = &v1;
 
-	init(v);
-
-	printf("%d\n", capacity(v));
-
-	for (int i = 0; i < *v->_capacity; ++i)
-	{
+	for (int i = 0; i < 16; i++) {
 		printf("hola mundo\n");
 	}
+
+	init(v);
+
+	for (int i = 0; i < 16; i++) {
+		printf("hola mundo\n");
+	}
+
+	//printf("%d\n", capacity(v));
+	//int c = capacity(v);
 
 	free(v->p);
 	return 0;

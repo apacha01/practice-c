@@ -51,23 +51,22 @@ void erase(struct Vector*, int/*índice*/);					//Elimina valor en índice y mue
 void removeAll(struct Vector*, int/*valor*/);				//Elimina todas las coincidencias de valor.
 int find(struct Vector*, int/*valor*/);						//Busca valor y devuelve el primer índice que coincida. -1 si no encuentra.
 void resize(struct Vector*, int/*nueva capacidad*/);		//Cambia el tamaño del array.
-void init(struct Vector*);									//Inicializa el vector dinámico.
+void init(struct Vector*);									//Inicializa el vector dinámico (reserva el espacio en memoria).
 
 //AUXILIARES							//NO SON PARA USO DEL PROGRAMADOR
-void allocateMemory(struct Vector*, int/*capacidad*/);		//Reserva el espacio en memoria para el array.
 void incrementSize(struct Vector*);							//Incrementa size y resize si es necesario.
 void decrementSize(struct Vector*);							//Decrementa size y resize si es necesario.
 void moveTo(struct Vector*, int, char);						//Mueve hacia izq o der (para insert y delete).
 void ownRealloc(struct Vector*, int /*nueva capacidad*/);	//Mismo objetivo que realloc pero propia.
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIARES
-void allocateMemory(struct Vector *v, int capacity){
-	v->p = (int *)calloc(capacity,sizeof(int));
+void init(struct Vector *v){
+	v->p = (int *)calloc(initialLength,sizeof(int));
 	v->_size = (v->p)-1;
 	v->_size = (v->p)-2;
 
 	*v->_size = 0;
-	*v->_capacity = (int)capacity;
+	*v->_capacity = initialLength;
 }
 
 void incrementSize(struct Vector *v){
@@ -175,10 +174,6 @@ int find(struct Vector *v, int item){
 void resize(struct Vector *v, int newCapacity){
 	*v->_capacity = newCapacity;
 	ownRealloc(v,newCapacity);
-}
-
-void init(struct Vector *v){
-	allocateMemory(v,initialLength);
 }
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 
