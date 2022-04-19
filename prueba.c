@@ -60,6 +60,20 @@ int main(){
 	printf("%d\n", capacity(v));
 	printf("%d\n", isEmpty(v));
 
+	printf("\n%d\n", pop(v));
+	printf("%d\n", pop(v));
+	printf("%d\n", pop(v));
+	printf("%d\n", pop(v));
+	printf("%d\n", pop(v));
+	printf("%d\n", pop(v));
+	printf("%d\n", pop(v));
+	printf("%d\n", pop(v));
+	printf("%d\n", pop(v));
+	printf("%d\n", pop(v));
+
+	printf("\n%d\n", size(v));
+	printf("%d\n", capacity(v));
+
 	free(v->p);
 	return 0;
 }
