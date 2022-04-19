@@ -59,7 +59,7 @@ void moveTo(struct Vector*, int, char);						//Mueve hacia izq o der (para inser
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIARES
 void allocateMemory(struct Vector *v, int capacity){
-	v->p = (int *)calloc(capacity,1);
+	v->p = (int *)calloc(capacity,sizeof(int));
 	v->_size = (v->p)-1;
 	v->_size = (v->p)-2;
 
@@ -163,10 +163,8 @@ int find(struct Vector *v, int item){
 
 void resize(struct Vector *v, int newCapacity){
 	*v->_capacity = newCapacity;
-	free(v->p);
-	v->p = (int *)calloc(newCapacity, 1);
+	v->p = (int *)calloc((capacity(v)*resizeFactor), sizeof(int));
 }
-
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 
 
