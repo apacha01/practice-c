@@ -29,6 +29,7 @@
 #include <stdlib.h>
 //////////////////////////////////////////////////DEFINES////////////////////////////////////////////////////////////////
 #define resizeFactor 2
+#define initialLength 16
 //////////////////////////////////////////////////VARIABLES GLOBALES/////////////////////////////////////////////////////
 struct Vector
 {
@@ -37,7 +38,7 @@ struct Vector
 	int *_capacity;
 };
 //////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES////////////////////////////////////////////////
-//DE LAS CONSIGNAS
+//DE LAS CONSIGNAS						//PARA USO DEL PROGRAMADOR
 int size(struct Vector*);									//Devuelve size
 int capacity(struct Vector*);								//Devuelve capacity
 bool isEmpty(struct Vector*);								//true si esta vacio, false si no.
@@ -50,8 +51,9 @@ void erase(struct Vector*, int/*índice*/);					//Elimina valor en índice y mue
 void removeAll(struct Vector*, int/*valor*/);				//Elimina todas las coincidencias de valor.
 int find(struct Vector*, int/*valor*/);						//Busca valor y devuelve el primer índice que coincida. -1 si no encuentra.
 void resize(struct Vector*, int/*nueva capacidad*/);		//Cambia el tamaño del array.
+void init(struct Vector*);									//Inicializa el vector dinámico.
 
-//AUXILIARES
+//AUXILIARES							//NO SON PARA USO DEL PROGRAMADOR
 void allocateMemory(struct Vector*, int/*capacidad*/);		//Reserva el espacio en memoria para el array.
 void incrementSize(struct Vector*);							//Incrementa size y resize si es necesario.
 void decrementSize(struct Vector*);							//Decrementa size y resize si es necesario.
@@ -173,6 +175,10 @@ int find(struct Vector *v, int item){
 void resize(struct Vector *v, int newCapacity){
 	*v->_capacity = newCapacity;
 	ownRealloc(v,newCapacity);
+}
+
+void init(struct Vector *v){
+	allocateMemory(v,initialLength);
 }
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 
