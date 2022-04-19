@@ -69,14 +69,14 @@ void allocateMemory(struct Vector *v, int capacity){
 
 void incrementSize(struct Vector *v){
 	*v->_size += 1;
-	if (*v->_size == *v->_capacity) {
-		//resize
+	if (size(v) == capacity(v)) {
+		resize(v,(capacity(v)*resizeFactor));
 	}
 }
 
 void decrementSize(struct Vector *v){
 	*v->_size -= 1;
-	if (*v->_size == ((*v->_capacity)/4)) {
+	if (size(v) == (capacity(v)/4)) {
 		//resize
 	}
 }
@@ -112,7 +112,7 @@ int at(struct Vector *v, int index){
 }
 
 void push(struct Vector *v, int item){
-	*((v->p)+*v->_size) = item;
+	*((v->p)+size(v)) = item;
 	incrementSize(v);
 }
 
@@ -152,15 +152,18 @@ void removeAll(struct Vector *v, int item){
 }
 
 int find(struct Vector *v, int item){
-	
 	for (int i = 0; i < size(v); ++i) {
 		if (*(v->p + i) == item)
 		{
 			return i;
 		}
 	}
-
 	return -1;
+}
+
+void resize(struct Vector *v, int newCapacity){
+	*v->_capacity = newCapacity;
+	v->p = (int *)realloc(v->p, newCapacity);
 }
 
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
