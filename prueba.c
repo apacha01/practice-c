@@ -13,11 +13,12 @@ int main(){
 	init(v);
 
 	for (int i = 0; i < 16; i++) {
-		printf("hola mundo\n");
+		push(v,i+1);
+		printf("%d\n", at(v,i));
 	}
 
-	//printf("%d\n", capacity(v));
-	//int c = capacity(v);
+	printf("%d\n", capacity(v));
+	printf("%d\n", size(v));
 
 	free(v->p);
 	return 0;

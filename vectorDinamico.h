@@ -63,7 +63,7 @@ void ownRealloc(struct Vector*, int /*nueva capacidad*/);	//Mismo objetivo que r
 void init(struct Vector *v){
 	v->p = (int *)calloc(initialLength,sizeof(int));
 	v->_size = (v->p)-1;
-	v->_size = (v->p)-2;
+	v->_capacity = (v->p)-2;
 
 	*v->_size = 0;
 	*v->_capacity = initialLength;
