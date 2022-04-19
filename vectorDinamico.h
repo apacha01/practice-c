@@ -56,6 +56,7 @@ void allocateMemory(struct Vector*, int/*capacidad*/);		//Reserva el espacio en 
 void incrementSize(struct Vector*);							//Incrementa size y resize si es necesario.
 void decrementSize(struct Vector*);							//Decrementa size y resize si es necesario.
 void moveTo(struct Vector*, int, char);						//Mueve hacia izq o der (para insert y delete).
+void ownRealloc(struct Vector*, int /*nueva capacidad*/);	//Mismo objetivo que realloc pero propia.
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIARES
 void allocateMemory(struct Vector *v, int capacity){
@@ -77,7 +78,7 @@ void incrementSize(struct Vector *v){
 void decrementSize(struct Vector *v){
 	*v->_size -= 1;
 	if (size(v) == (capacity(v)/4)) {
-		//resize
+		resize(v,(capacity(v)/resizeFactor));
 	}
 }
 
@@ -91,6 +92,14 @@ void moveTo(struct Vector *v, int index, char c){
 		for (int i = index; i < size(v) - 1; i++) {
 			*(v->p + i) = *(v->p + i + 1);
 		}
+	}
+}
+
+void ownRealloc(struct Vector *v, int newCapacity){
+	struct Vector vCpy = *v;
+	v->p = (int *)calloc(newCapacity, sizeof(int));
+	for (int i = 0; i < size(&vCpy); i++) {
+		*(v->p+i) = *(vCpy.p+i);
 	}
 }
 
@@ -139,7 +148,7 @@ void erase(struct Vector *v, int index){
 }
 
 void removeAll(struct Vector *v, int item){
-	for (int i = 0; i < size(v); ++i)
+	for (int i = 0; i < size(v); i++)
 	{
 		if (*(v->p+i) == item)
 		{
@@ -152,7 +161,7 @@ void removeAll(struct Vector *v, int item){
 }
 
 int find(struct Vector *v, int item){
-	for (int i = 0; i < size(v); ++i) {
+	for (int i = 0; i < size(v); i++) {
 		if (*(v->p + i) == item)
 		{
 			return i;
@@ -163,7 +172,7 @@ int find(struct Vector *v, int item){
 
 void resize(struct Vector *v, int newCapacity){
 	*v->_capacity = newCapacity;
-	v->p = (int *)calloc((capacity(v)*resizeFactor), sizeof(int));
+	ownRealloc(v,newCapacity);
 }
 /////////////////////////////////////////////////FIN PROGRAMA////////////////////////////////////////////////////////////
 
