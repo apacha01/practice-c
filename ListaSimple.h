@@ -100,12 +100,20 @@ void pushFront(struct SLinkedList *l, int value){
 		l->head = n;
 		n->_value = value;
 		n->next = NULL;
-		incrementSize(l);
 	}
 	else{
 		n->next = l->head;
 		n->_value = value;
 		l->head = n;
 	}
+	incrementSize(l);
+}
+
+int popFront(struct SLinkedList *l){
+	int aux = l->head->_value;
+	l->head = l->head->next;
+	//LIBERAR LA MEMORIA DEL NODO ELIMINADO
+	decrementSize(l);
+	return aux;
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

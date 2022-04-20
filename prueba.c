@@ -21,5 +21,11 @@ int main(){
 	printf("Size: %d - ", size(lp));
 	printf("Empty: %d\n", empty(lp));
 
+	printf("%d\n", popFront(lp));
+	printf("%d\n", lp->head->_value);
+	printf("Size: %d - ", size(lp));
+	printf("Empty: %d\n", empty(lp));
+
+
 	return 0;
 }
