@@ -37,7 +37,7 @@ struct SListNode
 //CONSIGNAS
 int	size(struct SLinkedList*);									// Devuelve el numero de elementos en la lista.
 bool empty(struct SLinkedList*);								// Devuelve true si esta vacía la lista, caso contrario false.
-int	valueAt(struct SLinkedList*, int/*n*/);						// Devuelve el valor del nodo numero n, contando desde 0.
+int	valueAt(struct SLinkedList*, int/*índice*/);				// Devuelve el valor del nodo en índice, contando desde 0.
 void pushFront(struct SLinkedList*, int/*valor*/);				// Agrega un nodo al principio de la lista.
 int popFront(struct SLinkedList*);								// Elimina nodo del inicio y devuelve el valor.
 void pushBack(struct SLinkedList*, int/*valor*/);				// Agrega un nodo al final de la lista.
@@ -46,7 +46,7 @@ int front(struct SLinkedList*);									// Devuelve el valor del primer nodo.
 int back(struct SLinkedList*);									// Devuelve el valor del último nodo.
 void insert(struct SLinkedList*, int/*índice*/, int/*valor*/);	// Inserta valor en índice, por lo que el nodo actual es apuntado por el nodo nuevo.
 void erase(struct SLinkedList*, int/*índice*/);					// Remueve el nodo en índice.
-int valueNfromEnd(struct SLinkedList*, int/*n*/);				// Devuelve el valor del nodo numero n, contando desde el último nodo.
+int valueNfromEnd(struct SLinkedList*, int/*índice*/);			// Devuelve el valor del nodo en índice, contando desde el último nodo.
 void reverse(struct SLinkedList*);								// Invierte la lista.
 void removeValue(struct SLinkedList*, int/*valor*/);			// Elimina el primer nodo con el valor.
 
@@ -79,7 +79,20 @@ bool empty(struct SLinkedList *l){
 	return l->_size <= 0;
 }
 
-//valueAT()
+int valueAt(struct SLinkedList *l, int index){
+	struct SListNode *aux;
+	struct SListNode *aux2;
+	aux = l->head;
+
+	for (int i = 0; i < index; i++) {
+		l->head = l->head->next;
+	}
+
+	aux2 = l->head;
+	l->head = aux;
+
+	return aux2->_value;
+}
 
 void pushFront(struct SLinkedList *l, int value){
 	struct SListNode n;
