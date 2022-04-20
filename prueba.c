@@ -11,5 +11,7 @@ int main(){
 	printf("%d\n", size(lp));
 	printf("%d\n", empty(lp));
 
+	pushFront(lp, 3);
+
 	return 0;
 }

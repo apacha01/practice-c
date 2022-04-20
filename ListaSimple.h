@@ -25,12 +25,12 @@ Implement (I did with tail pointer & without):
 struct SLinkedList
 {
 	int _size;
-	int *head;
+	struct SListNode *head;
 };
 
 struct SListNode
 {
-	int value;
+	int _value;
 	SListNode *next;
 };
 /////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES/////////////////////////////////////////////////
@@ -52,8 +52,8 @@ void removeValue(struct SLinkedList*, int/*valor*/);			// Elimina el primer nodo
 
 //AUXILIARES
 void init(struct SLinkedList*);
-
-
+void incrementSize(struct SLinkedList*);
+void decrementSize(struct SLinkedList*);
 
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
 //AUXILIARES
@@ -62,12 +62,37 @@ void init(struct SLinkedList *l){
 	l->_size = 0;
 }
 
+void incrementSize(struct SLinkedList *l){
+	l->_size++;
+}
+
+void decrementSize(struct SLinkedList *l){
+	l->_size--;
+}
+
 //CONSIGNAS
 int size(struct SLinkedList *l){
 	return l->_size;
 }
 
 bool empty(struct SLinkedList *l){
-	return l->_size<=0;
+	return l->_size <= 0;
+}
+
+//valueAT()
+
+void pushFront(struct SLinkedList *l, int value){
+	struct SListNode n;
+	if (empty(l)) {
+		l->head = &n;
+		n._value = value;
+		n.next = NULL;
+		incrementSize(l);
+	}
+	else{
+		n.next = l->head;
+		n._value = value;
+		l->head = &n;
+	}
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
