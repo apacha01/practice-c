@@ -1,3 +1,4 @@
+////////////////////////////////////////////////////////CONSIGNAS////////////////////////////////////////////////////////
 /*
 Implement (I did with tail pointer & without):
 	size() - returns number of data elements in list
@@ -23,7 +24,7 @@ Implement (I did with tail pointer & without):
 ///////////////////////////////////////////////////////ESTRUCTURAS///////////////////////////////////////////////////////
 struct SLinkedList
 {
-	int size;
+	int _size;
 	int *head;
 };
 
@@ -33,20 +34,40 @@ struct SListNode
 	SListNode *next;
 };
 /////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES/////////////////////////////////////////////////
-int	size();									// Devuelve el numero de elementos en la lista.
-bool empty();								// Devuelve true si esta vacía la lista, caso contrario false.
-int	valueAt(int/*n*/);						// Devuelve el valor del nodo numero n, contando desde 0.
-void pushFront(int/*valor*/);				// Agrega un nodo al principio de la lista.
-int popFront();								// Elimina nodo del inicio y devuelve el valor.
-void pushBack(int/*valor*/);				// Agrega un nodo al final de la lista.
-int popBack();								// Elimina nodo del final y devuelve el valor.
-int front();								// Devuelve el valor del primer nodo.
-int back();									// Devuelve el valor del último nodo.
-void insert(int/*índice*/, int/*valor*/);	// Inserta valor en índice, por lo que el nodo actual es apuntado por el nodo nuevo.
-void erase(int/*índice*/);					// Remueve el nodo en índice.
-int valueNfromEnd(int/*n*/);				// Devuelve el valor del nodo numero n, contando desde el último nodo.
-void reverse();								// Invierte la lista.
-void removeValue(int/*valor*/);				// Elimina el primer nodo con el valor.
-////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
+//CONSIGNAS
+int	size(struct SLinkedList*);									// Devuelve el numero de elementos en la lista.
+bool empty(struct SLinkedList*);								// Devuelve true si esta vacía la lista, caso contrario false.
+int	valueAt(struct SLinkedList*, int/*n*/);						// Devuelve el valor del nodo numero n, contando desde 0.
+void pushFront(struct SLinkedList*, int/*valor*/);				// Agrega un nodo al principio de la lista.
+int popFront(struct SLinkedList*);								// Elimina nodo del inicio y devuelve el valor.
+void pushBack(struct SLinkedList*, int/*valor*/);				// Agrega un nodo al final de la lista.
+int popBack(struct SLinkedList*);								// Elimina nodo del final y devuelve el valor.
+int front(struct SLinkedList*);									// Devuelve el valor del primer nodo.
+int back(struct SLinkedList*);									// Devuelve el valor del último nodo.
+void insert(struct SLinkedList*, int/*índice*/, int/*valor*/);	// Inserta valor en índice, por lo que el nodo actual es apuntado por el nodo nuevo.
+void erase(struct SLinkedList*, int/*índice*/);					// Remueve el nodo en índice.
+int valueNfromEnd(struct SLinkedList*, int/*n*/);				// Devuelve el valor del nodo numero n, contando desde el último nodo.
+void reverse(struct SLinkedList*);								// Invierte la lista.
+void removeValue(struct SLinkedList*, int/*valor*/);			// Elimina el primer nodo con el valor.
 
+//AUXILIARES
+void init(struct SLinkedList*);
+
+
+
+////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
+//AUXILIARES
+void init(struct SLinkedList *l){
+	l->head = NULL;
+	l->_size = 0;
+}
+
+//CONSIGNAS
+int size(struct SLinkedList *l){
+	return l->_size;
+}
+
+bool empty(struct SLinkedList *l){
+	return l->_size<=0;
+}
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
