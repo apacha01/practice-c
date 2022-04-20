@@ -95,17 +95,17 @@ int valueAt(struct SLinkedList *l, int index){
 }
 
 void pushFront(struct SLinkedList *l, int value){
-	struct SListNode n;
+	struct SListNode *n = (struct SListNode*)calloc(1,sizeof(SListNode));
 	if (empty(l)) {
-		l->head = &n;
-		n._value = value;
-		n.next = NULL;
+		l->head = n;
+		n->_value = value;
+		n->next = NULL;
 		incrementSize(l);
 	}
 	else{
-		n.next = l->head;
-		n._value = value;
-		l->head = &n;
+		n->next = l->head;
+		n->_value = value;
+		l->head = n;
 	}
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
