@@ -108,6 +108,12 @@ void pushFront(struct SLinkedList *l, int value){
 }
 
 int popFront(struct SLinkedList *l){
+	
+	if (empty(l)) {
+		printf("\nNOP\n");
+		return 0;
+	}
+
 	int aux;
 	struct SListNode *aux2;
 	
@@ -126,7 +132,7 @@ void pushBack(struct SLinkedList *l, int value){
 	
 	aux = l->head;
 
-	if (size(l) == 0) {
+	if (empty(l)) {
 		l->head = n;
 	}
 	else {
@@ -142,13 +148,26 @@ void pushBack(struct SLinkedList *l, int value){
 }
 
 int popBack(struct SLinkedList *l){
-	int aux;
+	if (empty(l)) {
+		printf("\nNOP\n");
+		return 0;
+	}
 
+	struct SListNode *aux;
+	int aux2;
+	aux = l->head;
 
+	if(size(l) >= 1){
+		for (int i = 0; i < size(l)-1; i++) {
+			aux = aux->next;
+		}
+		aux2 = aux->_value;
+		aux = NULL;
+	}
 
-
+	free(aux);
 	decrementSize(l);
-	return aux;
+	return aux2;
 }
 
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

@@ -17,6 +17,7 @@ int main(){
 	}
 
 	printf("%d\n", popFront(lp));
+	printf("%d\n", popBack(lp));
 	printf("Size: %d - ", size(lp));
 	printf("Empty: %d\n", empty(lp));
 
