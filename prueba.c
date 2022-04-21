@@ -14,18 +14,18 @@ int main(){
 
 	pushFront(lp, 3);
 	pushFront(lp, 4);
-
-	printf("%d\n", valueAt(lp,1));
-	printf("%d\n", lp->head);
-	printf("%d\n", lp->head->_value);
-	printf("Size: %d - ", size(lp));
-	printf("Empty: %d\n", empty(lp));
+	pushBack(lp,17);
+	pushBack(lp,58);
 
 	printf("%d\n", popFront(lp));
 	printf("%d\n", lp->head->_value);
 	printf("Size: %d - ", size(lp));
 	printf("Empty: %d\n", empty(lp));
 
+	for (int i = 0; i < size(lp); i++)
+	{
+		printf("%d\n", valueAt(lp,i));
+	}
 
 	return 0;
 }

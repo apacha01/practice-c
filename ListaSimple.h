@@ -97,15 +97,14 @@ int valueAt(struct SLinkedList *l, int index){
 void pushFront(struct SLinkedList *l, int value){
 	struct SListNode *n = (struct SListNode*)calloc(1,sizeof(SListNode));
 	if (empty(l)) {
-		l->head = n;
 		n->_value = value;
 		n->next = NULL;
 	}
 	else{
 		n->next = l->head;
 		n->_value = value;
-		l->head = n;
 	}
+	l->head = n;
 	incrementSize(l);
 }
 
@@ -121,4 +120,26 @@ int popFront(struct SLinkedList *l){
 	decrementSize(l);
 	return aux;
 }
+
+void pushBack(struct SLinkedList *l, int value){
+	struct SListNode *aux;
+	struct SListNode *n = (struct SListNode*)calloc(1,sizeof(SListNode));
+	
+	aux = l->head;
+
+	while(l->head != NULL){
+		l->head = l->head->next;
+	}
+
+	l->head = n;
+	n->next = NULL;
+	n->_value = value;
+
+	l->head = aux;
+}
+
+int popBack(struct SLinkedList *l){
+
+}
+
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
