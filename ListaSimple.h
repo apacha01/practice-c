@@ -209,4 +209,30 @@ void insert(struct SLinkedList *l, int index, int value){
 		incrementSize(l);
 	}
 }
+
+void erase(struct SLinkedList *l, int index){
+	struct SListNode *aux;
+	struct SListNode *aux2;
+	aux = l->head;
+
+	if (index < 0 || index >= size(l)) {
+		printf("\nNOP\n");
+	}
+	else if (index == 0) {
+		popFront(l);
+	}
+	else if(index == size(l)-1){
+		popBack(l);
+	}
+	else {
+		for (int i = 0; i < index-1; i++) {
+			aux = aux->next;
+		}
+		aux2 = aux->next;
+		aux->next = aux->next->next;
+
+		free(aux2);
+		decrementSize(l);
+	}
+}
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

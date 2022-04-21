@@ -9,9 +9,7 @@ int main(){
 	struct SLinkedList *lp = &l;
 	init(lp);
 
-	printf("Size: %d - ", size(lp));
-	printf("Empty: %d\n", empty(lp));
-	printf("%d\n", lp->head);
+	data(lp);
 
 	for (int i = 0; i < 4; i++) {
 		pushFront(lp, i+1);
@@ -34,6 +32,8 @@ int main(){
 	insert(lp,6,567);
 	insert(lp,5,1000);
 	insert(lp,20,10);
+
+	erase(lp,2);
 
 	data(lp);
 
