@@ -181,7 +181,32 @@ int back(struct SLinkedList *l){
 	for (int i = 0; i < size(l)-1; i++) {
 			aux = aux->next;
 	}
-	
+
 	return aux->_value;
+}
+
+void insert(struct SLinkedList *l, int index, int value){
+	struct SListNode *aux;
+	aux = l->head;
+
+	if (index < 0 || index >= size(l)) {
+		printf("\nNOP\n");
+	}
+	else if (index == 0) {
+		pushFront(l,value);
+	}
+	else if(index == size(l)-1){
+		pushBack(l,value);
+	}
+	else {
+		for (int i = 0; i < index-1; i++) {
+			aux = aux->next;
+		}
+		struct SListNode *n = (struct SListNode*)calloc(1,sizeof(SListNode));
+		n->_value = value;
+		n->next = aux->next;
+		aux->next = n;
+		incrementSize(l);
+	}
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

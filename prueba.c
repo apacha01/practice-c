@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "ListaSimple.h"
 
+void data(struct SLinkedList *);
+
 int main(){
 	struct SLinkedList l;
 	struct SLinkedList *lp = &l;
@@ -21,12 +23,27 @@ int main(){
 	printf("Size: %d - ", size(lp));
 	printf("Empty: %d\n", empty(lp));
 
+	data(lp);
+
+	printf("\n%d\n", front(lp));
+	printf("%d\n\n", back(lp));
+
+	insert(lp,0,0);
+	insert(lp,2,135);
+	insert(lp,1,400);
+	insert(lp,6,567);
+	insert(lp,5,1000);
+	insert(lp,20,10);
+
+	data(lp);
+
+	return 0;
+}
+
+void data(struct SLinkedList *lp){
 	for (int i = 0; i < size(lp); i++) {
 		printf("%d\n", valueAt(lp,i));
 	}
-
-	printf("%d\n", front(lp));
-	printf("%d\n", back(lp));
-
-	return 0;
+	printf("Size: %d - ", size(lp));
+	printf("Empty: %d\n", empty(lp));
 }
