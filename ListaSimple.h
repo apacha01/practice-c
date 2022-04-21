@@ -85,11 +85,10 @@ int valueAt(struct SLinkedList *l, int index){
 	aux = l->head;
 
 	for (int i = 0; i < index; i++) {
-		l->head = l->head->next;
+		aux = aux->next;
 	}
 
-	aux2 = l->head;
-	l->head = aux;
+	aux2 = aux;
 
 	return aux2->_value;
 }
@@ -132,12 +131,11 @@ void pushBack(struct SLinkedList *l, int value){
 	}
 	else {
 		for (int i = 0; i < size(l)-1; i++) {
-			l->head = l->head->next;
+			aux = aux->next;
 		}
-		l->head->next = n;
+		aux->next = n;
 	}
 
-	l->head = aux;
 	n->next = NULL;
 	n->_value = value;
 	incrementSize(l);
@@ -145,6 +143,9 @@ void pushBack(struct SLinkedList *l, int value){
 
 int popBack(struct SLinkedList *l){
 	int aux;
+
+
+
 
 	decrementSize(l);
 	return aux;
