@@ -11,7 +11,7 @@ int main(){
 	printf("Empty: %d\n", empty(lp));
 	printf("%d\n", lp->head);
 
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 4; i++) {
 		pushFront(lp, i+1);
 		pushBack(lp,i+17);
 	}
@@ -24,6 +24,9 @@ int main(){
 	for (int i = 0; i < size(lp); i++) {
 		printf("%d\n", valueAt(lp,i));
 	}
+
+	printf("%d\n", front(lp));
+	printf("%d\n", back(lp));
 
 	return 0;
 }

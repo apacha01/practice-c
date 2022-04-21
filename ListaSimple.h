@@ -170,4 +170,18 @@ int popBack(struct SLinkedList *l){
 	return aux2;
 }
 
+int front(struct SLinkedList *l){
+	return l->head->_value;
+}
+
+int back(struct SLinkedList *l){
+	struct SListNode *aux;
+	aux = l->head;
+
+	for (int i = 0; i < size(l)-1; i++) {
+			aux = aux->next;
+	}
+	
+	return aux->_value;
+}
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
