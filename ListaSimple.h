@@ -80,6 +80,12 @@ bool empty(struct SLinkedList *l){
 }
 
 int valueAt(struct SLinkedList *l, int index){
+	
+	if (index < 0 || index >= size(l)) {
+		printf("\nNOP\n");
+		return -1;
+	}
+	
 	struct SListNode *aux;
 	struct SListNode *aux2;
 	aux = l->head;
@@ -240,6 +246,13 @@ int valueNfromEnd(struct SLinkedList *l, int index){
 	int valueNfromHead;
 	valueNfromHead = size(l) - index - 1;
 
-	return valueAt(l,valueNfromHead);
+	if (index < 0 || index >= size(l)) {
+		printf("\nNOP\n");
+	}
+	else {
+		return valueAt(l,valueNfromHead);
+	}
+
+	return -1;
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
