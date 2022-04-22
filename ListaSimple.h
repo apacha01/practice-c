@@ -235,4 +235,11 @@ void erase(struct SLinkedList *l, int index){
 		decrementSize(l);
 	}
 }
+
+int valueNfromEnd(struct SLinkedList *l, int index){
+	int valueNfromHead;
+	valueNfromHead = size(l) - index - 1;
+
+	return valueAt(l,valueNfromHead);
+}
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

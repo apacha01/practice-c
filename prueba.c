@@ -37,6 +37,12 @@ int main(){
 
 	data(lp);
 
+	printf("\n%d\n", valueNfromEnd(lp,0));
+	printf("\n%d\n", valueNfromEnd(lp,2));
+	printf("\n%d\n", valueNfromEnd(lp,5));
+
+
+
 	return 0;
 }
 
