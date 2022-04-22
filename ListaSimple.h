@@ -264,6 +264,15 @@ void reverse(struct SLinkedList *l){
 }
 
 void removeValue(struct SLinkedList *l, int value){
-	
+	struct SListNode *aux;
+	aux = l->head;
+
+	for (int i = 0; i < size(l)-1; i++) {
+		if (aux->_value == value) {
+			erase(l,i);
+			break;
+		}
+		aux = aux->next;
+	}
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

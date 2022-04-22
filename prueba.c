@@ -44,6 +44,8 @@ int main(){
 	data(lp);
 
 	reverse(lp);
+	removeValue(lp,1000);
+	removeValue(lp,24);
 
 	data(lp);
 
