@@ -255,4 +255,14 @@ int valueNfromEnd(struct SLinkedList *l, int index){
 
 	return -1;
 }
+
+void reverse(struct SLinkedList *l){
+	for (int i = 0; i < size(l)-1; i++) {
+		pushFront(l,popBack(l));
+	}
+}
+
+void removeValue(struct SLinkedList *l, int value){
+	
+}
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

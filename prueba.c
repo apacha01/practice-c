@@ -39,14 +39,19 @@ int main(){
 
 	printf("\n%d\n", valueNfromEnd(lp,0));
 	printf("\n%d\n", valueNfromEnd(lp,2));
-	printf("\n%d\n", valueNfromEnd(lp,5));
+	printf("\n%d\n\n", valueNfromEnd(lp,5));
 
+	data(lp);
 
+	reverse(lp);
+
+	data(lp);
 
 	return 0;
 }
 
 void data(struct SLinkedList *lp){
+	printf("\n");
 	for (int i = 0; i < size(lp); i++) {
 		printf("%d\n", valueAt(lp,i));
 	}
