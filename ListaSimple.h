@@ -258,7 +258,8 @@ int valueNfromEnd(struct SLinkedList *l, int index){
 
 void reverse(struct SLinkedList *l){
 	for (int i = 0; i < size(l)-1; i++) {
-		pushFront(l,popBack(l));
+		pushFront(l,valueAt(l,i+1));
+		erase(l,i+2);
 	}
 }
 
