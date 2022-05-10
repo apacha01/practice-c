@@ -11,7 +11,6 @@ Implement with array using linear probing
 #include <stdlib.h>
 #include <string.h>
 /////////////////////////////////////////////////////////DEFINES/////////////////////////////////////////////////////////
-#define DEFAULT_TABLE_SIZE	10
 #define SMALL_PRIME_NUM		103
 #define MEDIUM_PRIME_NUM	100003
 #define BIG_PRIME_NUM		1000000003
@@ -25,10 +24,10 @@ typedef struct
 }HashTable;
 /////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES/////////////////////////////////////////////////
 unsigned int hash(char* /*key*/);
-void add(HashTable*, char* /*key*/,int /*value*/);
-bool exists(HashTable*, char* /*key*/);
-int get(HashTable*, char* /*key*/);
-void remove(HashTable*, char* /*key*/);
+void addToTable(HashTable*, char* /*key*/,int /*value*/);
+bool existsInTable(HashTable*, char* /*key*/);
+int getFromTable(HashTable*, char* /*key*/);
+void removeFromTable(HashTable*, char* /*key*/);
 
 //AUX FUNC.
 void initHashTable(HashTable*);
@@ -69,19 +68,19 @@ unsigned int hash(HashTable *ht, char *key){
 	return hash;
 }
 
-void add(HashTable *ht, char *key, int value){
+void addToTable(HashTable *ht, char *key, int value){
 	*(ht->arr + hash(ht,key)) = value;
 }
 
-bool exists(HashTable *ht, char *key){
+bool existsInTable(HashTable *ht, char *key){
+	return *(ht->arr + hash(ht,key));
+}
+
+int getFromTable(HashTable *ht, char *key){
 	return 0;
 }
 
-int get(HashTable *ht, char *key){
-	return 0;
-}
-
-void remove(HashTable *ht, char *key){
+void removeFromTable(HashTable *ht, char *key){
 	
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

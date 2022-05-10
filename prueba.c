@@ -17,14 +17,16 @@ int main(){
 
 	printTable(&h);
 
-	add(&h, "Jorge", 56);
-	add(&h, "Jose", 101);
-	add(&h, "María", 5);
+	addToTable(&h, "Jorge", 56);
+	addToTable(&h, "Jose", 101);
+	addToTable(&h, "María", 5);
 	//"Maria" (sin tilde) colisiona con "Graciela"
-	add(&h, "Graciela", 6);
+	addToTable(&h, "Graciela", 6);
 
 	printTable(&h);
 
+	printf("%d\n", existsInTable(&h, "Jorge"));
+	printf("%d\n", existsInTable(&h, "Pedro"));
 
 	finishHashTable(&h);
 	return 0;
