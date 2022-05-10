@@ -12,7 +12,15 @@
 
 //////////////////////////////////////////////////////////Main///////////////////////////////////////////////////////////
 int main(){
+	HashTable h;
+	initHashTable(&h,7);
 
+	printf("%d\n",hash("Jorge"));
+	printf("%d\n",hash("Jose"));
+	printf("%d\n",hash("Maria"));
+	printf("%d\n",hash("Juan"));
+	printf("%d\n",hash("Manuel"));
+	printf("%d\n",hash("Graciela"));
 
 	return 0;
 }
