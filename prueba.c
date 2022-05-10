@@ -15,13 +15,18 @@ int main(){
 	HashTable h;
 	initHashTable(&h,7);
 
-	printf("%d\n",hash("Jorge"));
-	printf("%d\n",hash("Jose"));
-	printf("%d\n",hash("Maria"));
-	printf("%d\n",hash("Juan"));
-	printf("%d\n",hash("Manuel"));
-	printf("%d\n",hash("Graciela"));
+	printTable(&h);
 
+	add(&h, "Jorge", 56);
+	add(&h, "Jose", 101);
+	add(&h, "María", 5);
+	//"Maria" (sin tilde) colisiona con "Graciela"
+	add(&h, "Graciela", 6);
+
+	printTable(&h);
+
+
+	finishHashTable(&h);
 	return 0;
 }
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////

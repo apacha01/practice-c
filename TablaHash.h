@@ -11,33 +11,51 @@ Implement with array using linear probing
 #include <stdlib.h>
 #include <string.h>
 /////////////////////////////////////////////////////////DEFINES/////////////////////////////////////////////////////////
-#define TABLE_SIZE			10
+#define DEFAULT_TABLE_SIZE	10
 #define SMALL_PRIME_NUM		103
 #define MEDIUM_PRIME_NUM	100003
 #define BIG_PRIME_NUM		1000000003
 ////////////////////////////////////////////////////////VARIABLES////////////////////////////////////////////////////////
-int HashTableSize = TABLE_SIZE;
+
 ///////////////////////////////////////////////////////ESTRUCTURAS///////////////////////////////////////////////////////
 typedef struct
 {
 	int *arr;
+	int m;
 }HashTable;
 /////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES/////////////////////////////////////////////////
 unsigned int hash(char* /*key*/);
-void add(char* /*key*/,int /*value*/);
-bool exists(char* /*key*/);
-int get(char* /*key*/);
-void remove(char* /*key*/);
+void add(HashTable*, char* /*key*/,int /*value*/);
+bool exists(HashTable*, char* /*key*/);
+int get(HashTable*, char* /*key*/);
+void remove(HashTable*, char* /*key*/);
 
 //AUX FUNC.
 void initHashTable(HashTable*);
+void finishHashTable(HashTable*);
+void printTable(HashTable *);
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
+//AUX FUNC.
 void initHashTable(HashTable *ht, int m){
-	ht->arr = (int*)malloc(sizeof(int)*m);
-	HashTableSize = m;
+	ht->arr = (int*)calloc(sizeof(int),m);
+	ht->m = m;
 }
 
-unsigned int hash(char *key){
+void finishHashTable(HashTable *ht){
+	free(ht->arr);
+	ht->m = 0;
+}
+
+void printTable(HashTable *ht){
+	printf("----------------------INICIO TABLA HASH----------------------\n");
+	for (int i = 0; i < ht->m; ++i){
+		printf("%d.\t%d\n",i+1, *(ht->arr + i));
+	}
+	printf("------------------------FIN TABLA HASH-----------------------\n");
+}
+
+//CONSIGNA
+unsigned int hash(HashTable *ht, char *key){
 	int length = strlen(key);
 	unsigned int hash = 0;
 
@@ -46,8 +64,24 @@ unsigned int hash(char *key){
 		hash *= SMALL_PRIME_NUM;
 	}
 
-	hash %= HashTableSize;
+	hash %= ht->m;
 
 	return hash;
+}
+
+void add(HashTable *ht, char *key, int value){
+	*(ht->arr + hash(ht,key)) = value;
+}
+
+bool exists(HashTable *ht, char *key){
+	return 0;
+}
+
+int get(HashTable *ht, char *key){
+	return 0;
+}
+
+void remove(HashTable *ht, char *key){
+	
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
