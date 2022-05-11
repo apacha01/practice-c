@@ -19,7 +19,13 @@ Implement with array using linear probing
 ///////////////////////////////////////////////////////ESTRUCTURAS///////////////////////////////////////////////////////
 typedef struct
 {
-	int *arr;
+	char *key;
+	int value;
+}Item;
+
+typedef struct
+{
+	Item *i;
 	int m;
 }HashTable;
 /////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES/////////////////////////////////////////////////
@@ -36,19 +42,25 @@ void printTable(HashTable *);
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
 //AUX FUNC.
 void initHashTable(HashTable *ht, int m){
-	ht->arr = (int*)calloc(sizeof(int),m);
+	ht->i = (Item*)calloc(sizeof(Item),m);
 	ht->m = m;
 }
 
 void finishHashTable(HashTable *ht){
-	free(ht->arr);
-	ht->m = 0;
+	free(ht->i);
+	ht->m = NULL;
 }
 
 void printTable(HashTable *ht){
 	printf("----------------------INICIO TABLA HASH----------------------\n");
 	for (int i = 0; i < ht->m; ++i){
-		printf("%d.\t%d\n",i+1, *(ht->arr + i));
+		if ((ht->i + i)->key == NULL){
+			printf("%d.\t---\n", i+1);
+		}
+		else{
+			printf("%d. Key: %3s", i+1, (ht->i + i)->key);
+			printf("\t\tValue: %d\n", (ht->i + i)->value);
+		}
 	}
 	printf("------------------------FIN TABLA HASH-----------------------\n");
 }
@@ -69,18 +81,32 @@ unsigned int hash(HashTable *ht, char *key){
 }
 
 void addToTable(HashTable *ht, char *key, int value){
-	*(ht->arr + hash(ht,key)) = value;
+	if(ht == NULL) return;
+	unsigned int hashValue = hash(ht,key);
+	(ht->i + hashValue)->key = key;
+	(ht->i + hashValue)->value = value;
 }
 
 bool existsInTable(HashTable *ht, char *key){
-	return *(ht->arr + hash(ht,key));
+	//UNA TABLA VACIA O INEXISTENTE
+	if(ht == NULL) return false;
+
+	//SI EL INDICE DONDE DEBERIA ESTAR LA LLAVE ESTA VACIO NO EXISTE
+	if ((ht->i + hash(ht,key))->key == NULL) return false;
+
+	//SI COINCIDE SE ENCONTRO Y EXISTE
+	if (!strcmp((ht->i + hash(ht,key))->key, key)) return true;
+
+	//PARA CUANDO AGREGUE UN VALOR PARA LOS ITEMS ELIMINADOS
+	return false;
 }
 
 int getFromTable(HashTable *ht, char *key){
+	if(ht == NULL) return 0;
 	return 0;
 }
 
 void removeFromTable(HashTable *ht, char *key){
-	
+	if(ht == NULL) return;
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

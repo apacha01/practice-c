@@ -19,14 +19,19 @@ int main(){
 
 	addToTable(&h, "Jorge", 56);
 	addToTable(&h, "Jose", 101);
-	addToTable(&h, "María", 5);
-	//"Maria" (sin tilde) colisiona con "Graciela"
+	addToTable(&h, "Pablo", 5);
 	addToTable(&h, "Graciela", 6);
 
 	printTable(&h);
 
 	printf("%d\n", existsInTable(&h, "Jorge"));
+	printf("%d\n", existsInTable(&h, "Jose"));
+	printf("%d\n", existsInTable(&h, "Pablo"));
+	printf("%d\n", existsInTable(&h, "Graciela"));
+	printf("%d\n", existsInTable(&h, "Gabriela"));
+	printf("%d\n", existsInTable(&h, "Martin"));
 	printf("%d\n", existsInTable(&h, "Pedro"));
+	printf("%d\n", existsInTable(&h, "Maria"));
 
 	finishHashTable(&h);
 	return 0;
