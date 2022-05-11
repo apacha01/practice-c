@@ -24,29 +24,9 @@ int main(){
 
 	printTable(&h);
 
-	printf("%d\n", existsInTable(&h, "Jorge"));
-	printf("%d\n", existsInTable(&h, "Jose"));
-	printf("%d\n", existsInTable(&h, "Pablo"));
-	printf("%d\n", existsInTable(&h, "Graciela"));
-	printf("%d\n", existsInTable(&h, "Gabriela"));
-	printf("%d\n", existsInTable(&h, "Martin"));
-	printf("%d\n", existsInTable(&h, "Pedro"));
-	printf("%d\n", existsInTable(&h, "Maria"));
-
-	printf("\n\n");
-
-	printf("%d\n", getFromTable(&h, "Jorge"));
-	printf("%d\n", getFromTable(&h, "Jose"));
-	printf("%d\n", getFromTable(&h, "Pablo"));
-	printf("%d\n", getFromTable(&h, "Graciela"));
-	printf("%d\n", getFromTable(&h, "Gabriela"));
-	printf("%d\n", getFromTable(&h, "Martin"));
-	printf("%d\n", getFromTable(&h, "Pedro"));
-	printf("%d\n", getFromTable(&h, "Maria"));
-
-
 	removeFromTable(&h, "Jorge");
 	removeFromTable(&h, "Pablo");
+	removeFromTable(&h, "Maria");
 
 	printTable(&h);
 

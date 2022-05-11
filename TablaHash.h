@@ -115,6 +115,9 @@ void removeFromTable(HashTable *ht, char *key){
 	if(ht == NULL) return;
 	unsigned int hashValue = hash(ht,key);
 	if ((ht->i + hashValue)->key == NULL) return;
+	//NO ES LA KEY
+	if (strcmp((ht->i + hashValue)->key, key)) return;
+
 	(ht->i + hashValue)->key = NULL;
 	(ht->i + hashValue)->value = DELETED_ITEM;
 }
