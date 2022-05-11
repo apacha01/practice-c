@@ -38,7 +38,7 @@ void removeFromTable(HashTable*, char* /*key*/);
 //AUX FUNC.
 void initHashTable(HashTable*);
 void finishHashTable(HashTable*);
-void printTable(HashTable *);
+void printTable(HashTable*);
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
 //AUX FUNC.
 void initHashTable(HashTable *ht, int m){
@@ -103,6 +103,9 @@ bool existsInTable(HashTable *ht, char *key){
 
 int getFromTable(HashTable *ht, char *key){
 	if(ht == NULL) return 0;
+	unsigned int hashValue = hash(ht,key);
+	if ((ht->i + hash(ht,key))->key == NULL) return 0;
+	if (!strcmp((ht->i + hashValue)->key, key)) return (ht->i + hashValue)->value;	//return ht->i (Item) ??
 	return 0;
 }
 

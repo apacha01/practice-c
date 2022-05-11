@@ -33,6 +33,17 @@ int main(){
 	printf("%d\n", existsInTable(&h, "Pedro"));
 	printf("%d\n", existsInTable(&h, "Maria"));
 
+	printf("\n\n");
+
+	printf("%d\n", getFromTable(&h, "Jorge"));
+	printf("%d\n", getFromTable(&h, "Jose"));
+	printf("%d\n", getFromTable(&h, "Pablo"));
+	printf("%d\n", getFromTable(&h, "Graciela"));
+	printf("%d\n", getFromTable(&h, "Gabriela"));
+	printf("%d\n", getFromTable(&h, "Martin"));
+	printf("%d\n", getFromTable(&h, "Pedro"));
+	printf("%d\n", getFromTable(&h, "Maria"));
+
 	finishHashTable(&h);
 	return 0;
 }
