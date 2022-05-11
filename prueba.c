@@ -44,6 +44,12 @@ int main(){
 	printf("%d\n", getFromTable(&h, "Pedro"));
 	printf("%d\n", getFromTable(&h, "Maria"));
 
+
+	removeFromTable(&h, "Jorge");
+	removeFromTable(&h, "Pablo");
+
+	printTable(&h);
+
 	finishHashTable(&h);
 	return 0;
 }

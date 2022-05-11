@@ -14,6 +14,8 @@ Implement with array using linear probing
 #define SMALL_PRIME_NUM		103
 #define MEDIUM_PRIME_NUM	100003
 #define BIG_PRIME_NUM		1000000003
+#define DELETED_ITEM		2147483647
+#define NON_EXISTANT_ITEM	-2147483648
 ////////////////////////////////////////////////////////VARIABLES////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////ESTRUCTURAS///////////////////////////////////////////////////////
@@ -104,12 +106,16 @@ bool existsInTable(HashTable *ht, char *key){
 int getFromTable(HashTable *ht, char *key){
 	if(ht == NULL) return 0;
 	unsigned int hashValue = hash(ht,key);
-	if ((ht->i + hash(ht,key))->key == NULL) return 0;
+	if ((ht->i + hashValue)->key == NULL) return 0;
 	if (!strcmp((ht->i + hashValue)->key, key)) return (ht->i + hashValue)->value;	//return ht->i (Item) ??
 	return 0;
 }
 
 void removeFromTable(HashTable *ht, char *key){
 	if(ht == NULL) return;
+	unsigned int hashValue = hash(ht,key);
+	if ((ht->i + hashValue)->key == NULL) return;
+	(ht->i + hashValue)->key = NULL;
+	(ht->i + hashValue)->value = DELETED_ITEM;
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
