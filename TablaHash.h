@@ -88,6 +88,7 @@ void addToTable(HashTable *ht, char *key, int value){
 			return;
 		}
 	}
+	printf("TABLA LLENA!\n");
 }
 
 bool existsInTable(HashTable *ht, char *key){
@@ -114,9 +115,24 @@ bool existsInTable(HashTable *ht, char *key){
 
 int getFromTable(HashTable *ht, char *key){
 	if(ht == NULL) return 0;
+
 	unsigned int hashValue = hash(ht,key);
-	if ((ht->i + hashValue)->key == NULL) return 0;
-	if (!strcmp((ht->i + hashValue)->key, key)) return (ht->i + hashValue)->value;	//return ht->i (Item) ??
+
+	for (int i = 0; i < ht->m; i++) {
+		int hashTrys = (hashValue + i) % ht->m;
+
+		//ESTA VACIO
+		if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == 0) return 0;
+
+		//ESTA ELIMINADO
+		if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == DELETED_ITEM) continue;
+
+		//SI NO ESTA VACIO O ELIMINADO COMPARO KEYs
+		else if (strcmp((ht->i + hashTrys)->key, key) == 0) {
+			return 	(ht->i + hashTrys)->value;									//return ht->i (Item) ??
+		}
+	}
+
 	return 0;
 }
 

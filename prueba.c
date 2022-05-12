@@ -24,6 +24,7 @@ int main(){
 	addToTable(&h, "Maria", 60);
 	addToTable(&h, "Pedro", 65);
 	addToTable(&h, "Juan Martin", 76);
+	addToTable(&h, "Moriello", 150);
 
 	printTable(&h);
 
@@ -51,6 +52,16 @@ int main(){
 	addToTable(&h, "Maria", 60);
 
 	printTable(&h);
+
+	printf("%d\n", getFromTable(&h, "Jorge"));
+	printf("%d\n", getFromTable(&h, "Martin"));
+	printf("%d\n", getFromTable(&h, "Pablo"));
+	printf("%d\n", getFromTable(&h, "Graciela"));
+	printf("%d\n", getFromTable(&h, "Pedro"));
+	printf("%d\n", getFromTable(&h, "Jose"));
+	printf("%d\n", getFromTable(&h, "Jose Luis"));
+	printf("%d\n", getFromTable(&h, "Maria"));
+
 
 	finishHashTable(&h);
 	return 0;
