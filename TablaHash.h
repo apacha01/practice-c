@@ -78,16 +78,32 @@ unsigned int hash(HashTable *ht, char *key){
 }
 
 void addToTable(HashTable *ht, char *key, int value){
+	//UNA TABLA VACIA O INEXISTENTE
 	if(ht == NULL) return;
+
 	unsigned int hashValue = hash(ht,key);
-	for (int i = 0; i < ht->m; i++) {
-		int hashTrys = (hashValue + i) % ht->m;
-		if ((ht->i + hashTrys)->key == NULL && ((ht->i + hashTrys)->value == 0 || (ht->i + hashTrys)->value == DELETED_ITEM)) {
-			(ht->i + hashTrys)->key = key;
-			(ht->i + hashTrys)->value = value;
-			return;
+	
+	if (existsInTable(ht,key)) {
+		for (int i = 0; i < ht->m; i++) {
+			int hashTrys = (hashValue + i) % ht->m;
+			if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == DELETED_ITEM) continue;
+			if (strcmp((ht->i + hashTrys)->key, key) == 0) {
+				(ht->i + hashTrys)->value = value;
+				return;
+			}
 		}
 	}
+	else{
+		for (int i = 0; i < ht->m; i++) {
+			int hashTrys = (hashValue + i) % ht->m;
+			if ((ht->i + hashTrys)->key == NULL && ((ht->i + hashTrys)->value == 0 || (ht->i + hashTrys)->value == DELETED_ITEM)) {
+				(ht->i + hashTrys)->key = key;
+				(ht->i + hashTrys)->value = value;
+				return;
+			}
+		}
+	}
+
 	printf("TABLA LLENA!\n");
 }
 
@@ -114,6 +130,7 @@ bool existsInTable(HashTable *ht, char *key){
 }
 
 int getFromTable(HashTable *ht, char *key){
+	//UNA TABLA VACIA O INEXISTENTE
 	if(ht == NULL) return 0;
 
 	unsigned int hashValue = hash(ht,key);
@@ -137,6 +154,7 @@ int getFromTable(HashTable *ht, char *key){
 }
 
 void removeFromTable(HashTable *ht, char *key){
+	//UNA TABLA VACIA O INEXISTENTE
 	if(ht == NULL) return;
 
 	unsigned int hashValue = hash(ht,key);

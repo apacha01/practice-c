@@ -62,6 +62,9 @@ int main(){
 	printf("%d\n", getFromTable(&h, "Jose Luis"));
 	printf("%d\n", getFromTable(&h, "Maria"));
 
+	addToTable(&h, "Graciela", 85);
+
+	printTable(&h);
 
 	finishHashTable(&h);
 	return 0;
