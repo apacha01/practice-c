@@ -24,9 +24,17 @@ int main(){
 
 	printTable(&h);
 
-	removeFromTable(&h, "Jorge");
-	removeFromTable(&h, "Pablo");
-	removeFromTable(&h, "Maria");
+	printf("%d\n", existsInTable(&h, "Jorge"));
+	printf("%d\n", existsInTable(&h, "Martin"));
+	printf("%d\n", existsInTable(&h, "Pablo"));
+	printf("%d\n", existsInTable(&h, "Maria"));
+	printf("%d\n", existsInTable(&h, "Jose"));
+	printf("%d\n", existsInTable(&h, "Pedro"));
+
+
+	//removeFromTable(&h, "Jorge");
+	//removeFromTable(&h, "Pablo");
+	//removeFromTable(&h, "Maria");
 
 	printTable(&h);
 

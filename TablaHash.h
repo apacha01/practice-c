@@ -79,10 +79,9 @@ unsigned int hash(HashTable *ht, char *key){
 
 void addToTable(HashTable *ht, char *key, int value){
 	if(ht == NULL) return;
-	unsigned int hashValue = hash(ht,key), hashTrys = hashValue;
-	printf("%d\n", hashTrys);
+	unsigned int hashValue = hash(ht,key);
 	for (int i = 0; i < ht->m; i++) {
-		hashTrys = (hashTrys + i) % ht->m;
+		int hashTrys = (hashValue + i) % ht->m;
 		if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == 0) {
 			(ht->i + hashTrys)->key = key;
 			(ht->i + hashTrys)->value = value;
@@ -95,13 +94,16 @@ bool existsInTable(HashTable *ht, char *key){
 	//UNA TABLA VACIA O INEXISTENTE
 	if(ht == NULL) return false;
 
-	//SI EL INDICE DONDE DEBERIA ESTAR LA LLAVE ESTA VACIO NO EXISTE
-	if ((ht->i + hash(ht,key))->key == NULL) return false;
+	unsigned int hashValue = hash(ht,key);
 
-	//SI COINCIDE SE ENCONTRO Y EXISTE
-	if (!strcmp((ht->i + hash(ht,key))->key, key)) return true;
+	for (int i = 0; i < ht->m; i++) {
+		int hashTrys = (hashValue + i) % ht->m;
+		if ((ht->i + hashTrys)->key != NULL && strcmp((ht->i + hashTrys)->key, key) == 0) {
+			return true;
+		}
+	}
 
-	//PARA CUANDO AGREGUE UN VALOR PARA LOS ITEMS ELIMINADOS
+	//SI RECORRIO TODA LA TABLA Y NO ENCONTRO ENTONCES NO EXISTE
 	return false;
 }
 
