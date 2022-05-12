@@ -56,13 +56,8 @@ void finishHashTable(HashTable *ht){
 void printTable(HashTable *ht){
 	printf("----------------------INICIO TABLA HASH----------------------\n");
 	for (int i = 0; i < ht->m; ++i){
-		if ((ht->i + i)->key == NULL){
-			printf("%d.\t---\n", i+1);
-		}
-		else{
-			printf("%d. Key: %3s", i+1, (ht->i + i)->key);
-			printf("\t\tValue: %d\n", (ht->i + i)->value);
-		}
+		printf("%d. Key: %3s", i+1, (ht->i + i)->key);
+		printf("\t\tValue: %d\n", (ht->i + i)->value);
 	}
 	printf("------------------------FIN TABLA HASH-----------------------\n");
 }
@@ -74,7 +69,7 @@ unsigned int hash(HashTable *ht, char *key){
 
 	for (int i = 0; i < length; i++){
 		hash += *(key + i) * *key;
-		hash *= SMALL_PRIME_NUM;
+		hash *= BIG_PRIME_NUM;
 	}
 
 	hash %= ht->m;
@@ -84,9 +79,16 @@ unsigned int hash(HashTable *ht, char *key){
 
 void addToTable(HashTable *ht, char *key, int value){
 	if(ht == NULL) return;
-	unsigned int hashValue = hash(ht,key);
-	(ht->i + hashValue)->key = key;
-	(ht->i + hashValue)->value = value;
+	unsigned int hashValue = hash(ht,key), hashTrys = hashValue;
+	printf("%d\n", hashTrys);
+	for (int i = 0; i < ht->m; i++) {
+		hashTrys = (hashTrys + i) % ht->m;
+		if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == 0) {
+			(ht->i + hashTrys)->key = key;
+			(ht->i + hashTrys)->value = value;
+			return;
+		}
+	}
 }
 
 bool existsInTable(HashTable *ht, char *key){
