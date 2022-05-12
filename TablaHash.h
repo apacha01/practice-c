@@ -11,11 +11,8 @@ Implement with array using linear probing
 #include <stdlib.h>
 #include <string.h>
 /////////////////////////////////////////////////////////DEFINES/////////////////////////////////////////////////////////
-#define SMALL_PRIME_NUM		103
-#define MEDIUM_PRIME_NUM	100003
 #define BIG_PRIME_NUM		1000000003
 #define DELETED_ITEM		2147483647
-#define NON_EXISTANT_ITEM	-2147483648
 ////////////////////////////////////////////////////////VARIABLES////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////ESTRUCTURAS///////////////////////////////////////////////////////
@@ -87,7 +84,7 @@ void addToTable(HashTable *ht, char *key, int value){
 		for (int i = 0; i < ht->m; i++) {
 			int hashTrys = (hashValue + i) % ht->m;
 			if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == DELETED_ITEM) continue;
-			if (strcmp((ht->i + hashTrys)->key, key) == 0) {
+			else if (strcmp((ht->i + hashTrys)->key, key) == 0) {
 				(ht->i + hashTrys)->value = value;
 				return;
 			}
@@ -122,7 +119,7 @@ bool existsInTable(HashTable *ht, char *key){
 		if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == DELETED_ITEM) continue;
 
 		//SI NO ESTA VACIO O ELIMINADO COMPARO KEYs
-		if (strcmp((ht->i + hashTrys)->key, key) == 0) return true;
+		else if (strcmp((ht->i + hashTrys)->key, key) == 0) return true;
 	}
 
 	//SI RECORRIO TODA LA TABLA Y NO ENCONTRO ENTONCES NO EXISTE
@@ -145,9 +142,7 @@ int getFromTable(HashTable *ht, char *key){
 		if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == DELETED_ITEM) continue;
 
 		//SI NO ESTA VACIO O ELIMINADO COMPARO KEYs
-		else if (strcmp((ht->i + hashTrys)->key, key) == 0) {
-			return 	(ht->i + hashTrys)->value;									//return ht->i (Item) ??
-		}
+		else if (strcmp((ht->i + hashTrys)->key, key) == 0) return 	(ht->i + hashTrys)->value;
 	}
 
 	return 0;
