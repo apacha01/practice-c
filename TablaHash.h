@@ -82,7 +82,7 @@ void addToTable(HashTable *ht, char *key, int value){
 	unsigned int hashValue = hash(ht,key);
 	for (int i = 0; i < ht->m; i++) {
 		int hashTrys = (hashValue + i) % ht->m;
-		if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == 0) {
+		if ((ht->i + hashTrys)->key == NULL && ((ht->i + hashTrys)->value == 0 || (ht->i + hashTrys)->value == DELETED_ITEM)) {
 			(ht->i + hashTrys)->key = key;
 			(ht->i + hashTrys)->value = value;
 			return;
@@ -98,9 +98,14 @@ bool existsInTable(HashTable *ht, char *key){
 
 	for (int i = 0; i < ht->m; i++) {
 		int hashTrys = (hashValue + i) % ht->m;
-		if ((ht->i + hashTrys)->key != NULL && strcmp((ht->i + hashTrys)->key, key) == 0) {
-			return true;
-		}
+		//ESTA VACIO
+		if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == 0) return false;
+
+		//ESTA ELIMINADO
+		if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == DELETED_ITEM) continue;
+
+		//SI NO ESTA VACIO O ELIMINADO COMPARO KEYs
+		if (strcmp((ht->i + hashTrys)->key, key) == 0) return true;
 	}
 
 	//SI RECORRIO TODA LA TABLA Y NO ENCONTRO ENTONCES NO EXISTE
@@ -117,12 +122,24 @@ int getFromTable(HashTable *ht, char *key){
 
 void removeFromTable(HashTable *ht, char *key){
 	if(ht == NULL) return;
-	unsigned int hashValue = hash(ht,key);
-	if ((ht->i + hashValue)->key == NULL) return;
-	//NO ES LA KEY
-	if (strcmp((ht->i + hashValue)->key, key)) return;
 
-	(ht->i + hashValue)->key = NULL;
-	(ht->i + hashValue)->value = DELETED_ITEM;
+	unsigned int hashValue = hash(ht,key);
+	
+	for (int i = 0; i < ht->m; i++) {
+		int hashTrys = (hashValue + i) % ht->m;
+
+		//ESTA VACIO
+		if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == 0) return;
+
+		//ESTA ELIMINADO
+		if ((ht->i + hashTrys)->key == NULL && (ht->i + hashTrys)->value == DELETED_ITEM) continue;
+
+		//SI NO ESTA VACIO O ELIMINADO COMPARO KEYs
+		else if (strcmp((ht->i + hashTrys)->key, key) == 0) {
+			(ht->i + hashTrys)->key = NULL;
+			(ht->i + hashTrys)->value = DELETED_ITEM;
+			return;
+		}
+	}
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

@@ -21,6 +21,9 @@ int main(){
 	addToTable(&h, "Jose", 101);
 	addToTable(&h, "Pablo", 5);
 	addToTable(&h, "Graciela", 6);
+	addToTable(&h, "Maria", 60);
+	addToTable(&h, "Pedro", 65);
+	addToTable(&h, "Juan Martin", 76);
 
 	printTable(&h);
 
@@ -31,10 +34,21 @@ int main(){
 	printf("%d\n", existsInTable(&h, "Jose"));
 	printf("%d\n", existsInTable(&h, "Pedro"));
 
+	printf("\n\n");
 
-	//removeFromTable(&h, "Jorge");
-	//removeFromTable(&h, "Pablo");
-	//removeFromTable(&h, "Maria");
+	removeFromTable(&h, "Jorge");
+	removeFromTable(&h, "Pablo");
+	removeFromTable(&h, "Maria");
+
+	printf("\n\n");
+
+	printf("%d\n", existsInTable(&h, "Jorge"));
+	printf("%d\n", existsInTable(&h, "Martin"));
+	printf("%d\n", existsInTable(&h, "Pablo"));
+	printf("%d\n", existsInTable(&h, "Graciela"));
+	printf("%d\n", existsInTable(&h, "Jose"));
+	printf("%d\n", existsInTable(&h, "Pedro"));
+	addToTable(&h, "Maria", 60);
 
 	printTable(&h);
 
