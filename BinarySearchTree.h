@@ -51,7 +51,6 @@ void preorder(BSTnode*/*root*/);					// prints values in preorder
 void inorder(BSTnode*/*root*/);						// prints values in inorder
 void postorder(BSTnode*/*root*/);					// prints values in postorder
 void addNode(BSTnode**/*root*/, BSTnode*/*node*/);	// adds a node
-int countNodes(BST*/*root*/);						// returns count of nodes
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
 //AUXILIAR
 void BSTinit(BST *BSTree){
@@ -111,9 +110,9 @@ void addNode(BSTnode **root, BSTnode *node){
 	}
 }
 
-int countNodes(BSTnode *root){
-	if (root == NULL) return 0;
-	return 1 + countNodes(root->leftChild) + countNodes(root->rightChild);
+void deleteNode(BSTnode **root, BSTnode *node){
+	//EMPTY TREE
+	if (*root == NULL) return;
 }
 
 //////////////////////////////////////////////////////////
@@ -122,11 +121,31 @@ void insert(BST *BSTree, int value){
 }
 
 void printValues(BST *BSTree){
+	if (BSTree->root == NULL) { printf("Empty tree.\n"); return;}
 	//MIN to MAX
 	inorder(BSTree->root);
 }
 
+int getNodeCount(BSTnode *root){
+	if (root == NULL) return 0;
+	return 1 + getNodeCount(root->leftChild) + getNodeCount(root->rightChild);
+}
+
 int getNodeCount(BST *BSTree){
-	return countNodes(BSTree->root);
+	return getNodeCount(BSTree->root);
+}
+
+void deleteTree(BSTnode *root){
+	if (root == NULL) return;
+
+	deleteTree(root->leftChild);
+	deleteTree(root->rightChild);
+
+	free(root);
+}
+
+void deleteTree(BST *BSTree){
+	deleteTree(BSTree->root);
+	BSTinit(BSTree);
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
