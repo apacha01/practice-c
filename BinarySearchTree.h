@@ -102,9 +102,11 @@ void addNode(BSTnode **root, BSTnode *node){
 
 	if (node->_value >= (*root)->_value) {
 		addNode(&(*root)->rightChild, node);
+		(*root)->rightChild->parent = *root;
 	}
 	else{
 		addNode(&(*root)->leftChild, node);
+		(*root)->leftChild->parent = *root;
 	}
 }
 //////////////////////////////////////////////////////////
