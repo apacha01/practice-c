@@ -19,18 +19,18 @@
 ////////////////////////////////////////////////////////VARIABLES////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////ESTRUCTURAS///////////////////////////////////////////////////////
-typedef struct
+typedef struct BSTnode
 {
-	BSTnode* root;
-}BST;
-
-typedef struct
-{
-	int value;
-	BSTnode* parent;
-	BSTnode* leftChild;
-	BSTnode* rightChild;
+	int _value;
+	BSTnode *parent;
+	BSTnode *leftChild;
+	BSTnode *rightChild;
 }BSTnode;
+
+typedef struct BST
+{
+	BSTnode *root;
+}BST;
 /////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES/////////////////////////////////////////////////
 void insert(BST*/*root*/, int/*value*/);			// insert value into tree
 int get_node_count(BST*/*root*/);					// get count of values stored
@@ -43,8 +43,36 @@ int get_max(BST*/*root*/);							// returns the maximum value stored in the tree
 bool is_binary_search_tree(BST*/*root*/);
 void delete_value(BST*/*root*/, int/*value*/);
 BSTnode* get_successor(BST*/*root*/, int/*value*/);	// returns next-highest value in tree after given value, -1 if none
+
+//AUXILIAR
+void BSTinit(BST*/*root*/);							// initialize the BST
+BSTnode *createNode();								// creates a node and returns it
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
+void BSTinit(BST *BSTree){
+	BSTree->root = NULL;
+}
 
+BSTnode* createNode(int value){
+	BSTnode *n = (struct BSTnode*)calloc(1,sizeof(BSTnode));
+	n->_value = value;
+	n->parent = NULL;
+	n->leftChild = NULL;
+	n->rightChild = NULL;
+	return n;
+}
 
+void insert(BST *BSTree, int value){
+	if (BSTree->root == NULL) {
+		BSTree->root = createNode(value);
+	}
+	else {
+		if (value >= BSTree->root->_value) {	//TO THE RIGHT
+			printf("added to right subtree\n");
+		}
+		else { //TO THE LEFT
+			printf("added to left subtree\n");
+		}
+	}
+}
 
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
