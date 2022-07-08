@@ -32,22 +32,26 @@ typedef struct BST
 	BSTnode *root;
 }BST;
 /////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES/////////////////////////////////////////////////
-void insert(BST*/*root*/, int/*value*/);			// insert value into tree
-int get_node_count(BST*/*root*/);					// get count of values stored
-void print_values(BST*/*root*/);					// prints the values in the tree, from min to max
-void delete_tree(BST*/*root*/);
-bool is_in_tree(BST*/*root*/, int/*value*/);		// returns true if given value exists in the tree
-int get_height(BST*/*root*/);						// returns the height in nodes (single node's height is 1)
-int get_min(BST*/*root*/);							// returns the minimum value stored in the tree
-int get_max(BST*/*root*/);							// returns the maximum value stored in the tree
-bool is_binary_search_tree(BST*/*root*/);
-void delete_value(BST*/*root*/, int/*value*/);
-BSTnode* get_successor(BST*/*root*/, int/*value*/);	// returns next-highest value in tree after given value, -1 if none
+void insert(BST*/*tree*/, int/*value*/);			// insert value into tree
+int getNodeCount(BST*/*tree*/);						// get count of values stored
+void printValues(BST*/*tree*/);						// prints the values in the tree, from min to max
+void deleteTree(BST*/*tree*/);
+bool isInTree(BST*/*tree*/, int/*value*/);			// returns true if given value exists in the tree
+int getHeight(BST*/*tree*/);						// returns the height in nodes (single node's height is 1)
+int getMin(BST*/*tree*/);							// returns the minimum value stored in the tree
+int getMax(BST*/*tree*/);							// returns the maximum value stored in the tree
+bool isBST(BST*/*tree*/);
+void deleteValue(BST*/*tree*/, int/*value*/);
+BSTnode* getSuccessor(BST*/*tree*/, int/*value*/);	// returns next-highest value in tree after given value, -1 if none
 
 //AUXILIAR
-void BSTinit(BST*/*root*/);							// initialize the BST
+void BSTinit(BST*/*tree*/);							// initialize the BST
 BSTnode *createNode();								// creates a node and returns it
+void preorder(BSTnode*/*root*/);					// prints values in preorder
+void inorder(BSTnode*/*root*/);						// prints values in inorder
+void postorder(BSTnode*/*root*/);					// prints values in postorder
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
+//AUXILIAR
 void BSTinit(BST *BSTree){
 	BSTree->root = NULL;
 }
@@ -61,6 +65,31 @@ BSTnode* createNode(int value){
 	return n;
 }
 
+void preorder(BSTnode *root){
+	if (root == NULL) return;
+
+	printf("%d - ", root->_value);
+	preorder(root->leftChild);
+	preorder(root->rightChild);
+}
+
+void inorder(BSTnode *root){
+	if (root == NULL) return;
+
+	inorder(root->leftChild);
+	if (root->rightChild != NULL) printf("%d - ", root->_value);
+	else { printf("%d\n", root->_value); }
+	inorder(root->rightChild);
+}
+
+void postorder(BSTnode *root){
+	if (root == NULL) return;
+
+	postorder(root->leftChild);
+	postorder(root->rightChild);
+	printf("%d - ", root->_value);
+}
+//////////////////////////////////////////////////////////
 void insert(BST *BSTree, int value){
 	if (BSTree->root == NULL) {
 		BSTree->root = createNode(value);
@@ -74,5 +103,12 @@ void insert(BST *BSTree, int value){
 		}
 	}
 }
+
+void printValues(BST *BSTree){
+	//MIN to MAX
+	inorder(BSTree->root);
+}
+
+
 
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
