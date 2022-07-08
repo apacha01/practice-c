@@ -35,13 +35,13 @@ typedef struct BST
 void insert(BST*/*tree*/, int/*value*/);			// insert value into tree
 int getNodeCount(BST*/*tree*/);						// get count of values stored
 void printValues(BST*/*tree*/);						// prints the values in the tree, from min to max
-void deleteTree(BST*/*tree*/);
+void deleteTree(BST*/*tree*/);						// delets all nodes and resets the root
 bool isInTree(BST*/*tree*/, int/*value*/);			// returns true if given value exists in the tree
 int getHeight(BST*/*tree*/);						// returns the height in nodes (single node's height is 1)
 int getMin(BST*/*tree*/);							// returns the minimum value stored in the tree
 int getMax(BST*/*tree*/);							// returns the maximum value stored in the tree
-bool isBST(BST*/*tree*/);
-void deleteValue(BST*/*tree*/, int/*value*/);
+bool isBST(BST*/*tree*/);							// returns true if tree is BST, false otherwise
+void deleteValue(BST*/*tree*/, int/*value*/);		// deletes node with value
 BSTnode* getSuccessor(BST*/*tree*/, int/*value*/);	// returns next-highest value in tree after given value, -1 if none
 
 //AUXILIAR
@@ -78,11 +78,7 @@ void inorder(BSTnode *root){
 	if (root == NULL) return;
 
 	inorder(root->leftChild);
-	printf("This: %x - ", root);
-	printf("Value: %d - ", root->_value);
-	printf("Parent: %x - ", root->parent);
-	printf("Left Child: %x - ", root->leftChild);
-	printf("Right Child: %x\n", root->rightChild);
+	printf("%d ", root->_value);
 	inorder(root->rightChild);
 }
 
@@ -108,11 +104,6 @@ void addNode(BSTnode **root, BSTnode *node){
 		addNode(&(*root)->leftChild, node);
 		(*root)->leftChild->parent = *root;
 	}
-}
-
-void deleteNode(BSTnode **root, BSTnode *node){
-	//EMPTY TREE
-	if (*root == NULL) return;
 }
 
 //////////////////////////////////////////////////////////
@@ -148,4 +139,6 @@ void deleteTree(BST *BSTree){
 	deleteTree(BSTree->root);
 	BSTinit(BSTree);
 }
+
+
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
