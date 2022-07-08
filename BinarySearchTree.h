@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 /////////////////////////////////////////////////////////DEFINES/////////////////////////////////////////////////////////
-
+#define max(x,y)	((x > y) ? x : y)
 ////////////////////////////////////////////////////////VARIABLES////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////ESTRUCTURAS///////////////////////////////////////////////////////
@@ -144,13 +144,14 @@ void deleteTree(BST *BSTree){
 bool isInTree(BSTnode *root, int value){
 	if (root->_value == value) return true;
 	else if (root->leftChild == NULL && root->rightChild == NULL) return false;
-	else if (root->_value > value) isInTree(root->leftChild, value);
-	else isInTree(root->rightChild, value);
+	else if (root->_value > value) return isInTree(root->leftChild, value);
+	else return isInTree(root->rightChild, value);
 }
 
 bool isInTree(BST *BSTree, int value){
+	// NON RECURSIVE (1st IDEA)
 	// BSTnode *aux = BSTree->root;
-	
+	//
 	// while(aux){
 	// 	if (aux->_value == value) return true;
 	// 	if (aux->leftChild == NULL && aux->rightChild == NULL) return false;
@@ -158,6 +159,19 @@ bool isInTree(BST *BSTree, int value){
 	// 	if (aux->_value < value) aux = aux->rightChild;
 	// }
 
-	isInTree(BSTree->root, value);
+	return isInTree(BSTree->root, value);
+}
+
+int getHeight(BSTnode *root){
+	if (root == NULL) return -1;
+
+	int leftHeight = getHeight(root->leftChild);
+	int rightHeight = getHeight(root->rightChild);
+
+	return 1 + max(leftHeight,rightHeight);
+}
+
+int getHeight(BST *BSTree){
+	return getHeight(BSTree->root);
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

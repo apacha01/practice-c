@@ -12,10 +12,12 @@ int main(){
 	insert(&b,19);
 	insert(&b,1);
 	insert(&b,8);
+	insert(&b,28);
+	insert(&b,27);
 
 	printValues(&b);
 
-	printf("%d\n", getNodeCount(&b));
+	printf("%d\n\n", getNodeCount(&b));
 
 	printf("%d\n", isInTree(&b, 1));
 	printf("%d\n", isInTree(&b, 18));
@@ -24,8 +26,10 @@ int main(){
 	printf("%d\n", isInTree(&b, 17));
 	printf("%d\n", isInTree(&b, 15));
 	printf("%d\n", isInTree(&b, 12));
-	printf("%d\n", isInTree(&b, 22));
+	printf("%d\n\n", isInTree(&b, 22));
 	
+
+	printf("%d\n", getHeight(&b));
 
 	printf("\n\nFin\n\n");
 	deleteTree(&b);
