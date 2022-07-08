@@ -51,6 +51,7 @@ void preorder(BSTnode*/*root*/);					// prints values in preorder
 void inorder(BSTnode*/*root*/);						// prints values in inorder
 void postorder(BSTnode*/*root*/);					// prints values in postorder
 void addNode(BSTnode**/*root*/, BSTnode*/*node*/);	// adds a node
+int countNodes(BST*/*root*/);						// returns count of nodes
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
 //AUXILIAR
 void BSTinit(BST *BSTree){
@@ -78,11 +79,11 @@ void inorder(BSTnode *root){
 	if (root == NULL) return;
 
 	inorder(root->leftChild);
-	printf("This: %x -", root);
-	printf("Value: %d -", root->_value);
+	printf("This: %x - ", root);
+	printf("Value: %d - ", root->_value);
 	printf("Parent: %x - ", root->parent);
 	printf("Left Child: %x - ", root->leftChild);
-	printf("Right Child: %x \n", root->rightChild);
+	printf("Right Child: %x\n", root->rightChild);
 	inorder(root->rightChild);
 }
 
@@ -109,6 +110,12 @@ void addNode(BSTnode **root, BSTnode *node){
 		(*root)->leftChild->parent = *root;
 	}
 }
+
+int countNodes(BSTnode *root){
+	if (root == NULL) return 0;
+	return 1 + countNodes(root->leftChild) + countNodes(root->rightChild);
+}
+
 //////////////////////////////////////////////////////////
 void insert(BST *BSTree, int value){
 	addNode(&(BSTree->root), createNode(value));
@@ -119,4 +126,7 @@ void printValues(BST *BSTree){
 	inorder(BSTree->root);
 }
 
+int getNodeCount(BST *BSTree){
+	return countNodes(BSTree->root);
+}
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
