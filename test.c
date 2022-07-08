@@ -17,8 +17,18 @@ int main(){
 
 	printf("%d\n", getNodeCount(&b));
 
-	deleteTree(&b);
+	printf("%d\n", isInTree(&b, 1));
+	printf("%d\n", isInTree(&b, 18));
+	printf("%d\n", isInTree(&b, 8));
+	printf("%d\n", isInTree(&b, 19));
+	printf("%d\n", isInTree(&b, 17));
+	printf("%d\n", isInTree(&b, 15));
+	printf("%d\n", isInTree(&b, 12));
+	printf("%d\n", isInTree(&b, 22));
+	
 
+	printf("\n\nFin\n\n");
+	deleteTree(&b);
 	printValues(&b);
 	return 0;
 }

@@ -115,6 +115,7 @@ void printValues(BST *BSTree){
 	if (BSTree->root == NULL) { printf("Empty tree.\n"); return;}
 	//MIN to MAX
 	inorder(BSTree->root);
+	printf("\n");
 }
 
 int getNodeCount(BSTnode *root){
@@ -140,5 +141,23 @@ void deleteTree(BST *BSTree){
 	BSTinit(BSTree);
 }
 
+bool isInTree(BSTnode *root, int value){
+	if (root->_value == value) return true;
+	else if (root->leftChild == NULL && root->rightChild == NULL) return false;
+	else if (root->_value > value) isInTree(root->leftChild, value);
+	else isInTree(root->rightChild, value);
+}
 
+bool isInTree(BST *BSTree, int value){
+	// BSTnode *aux = BSTree->root;
+	
+	// while(aux){
+	// 	if (aux->_value == value) return true;
+	// 	if (aux->leftChild == NULL && aux->rightChild == NULL) return false;
+	// 	if (aux->_value > value) aux = aux->leftChild;
+	// 	if (aux->_value < value) aux = aux->rightChild;
+	// }
+
+	isInTree(BSTree->root, value);
+}
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
