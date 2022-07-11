@@ -15,7 +15,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 /////////////////////////////////////////////////////////DEFINES/////////////////////////////////////////////////////////
-#define max(x,y)	((x > y) ? x : y)
+#define max(x,y)	((x >= y) ? x : y)
+#define MIN_IS_BST		-2147483648
+#define MAX_IS_BST		2147483647
 ////////////////////////////////////////////////////////VARIABLES////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////ESTRUCTURAS///////////////////////////////////////////////////////
@@ -69,7 +71,7 @@ BSTnode* createNode(int value){
 void preorder(BSTnode *root){
 	if (root == NULL) return;
 
-	printf("%d - ", root->_value);
+	printf("%d ", root->_value);
 	preorder(root->leftChild);
 	preorder(root->rightChild);
 }
@@ -87,7 +89,7 @@ void postorder(BSTnode *root){
 
 	postorder(root->leftChild);
 	postorder(root->rightChild);
-	printf("%d - ", root->_value);
+	printf("%d ", root->_value);
 }
 
 void addNode(BSTnode **root, BSTnode *node){
@@ -212,5 +214,18 @@ int getMax(BST *BSTree){
 	// return aux->_value;
 
 	return getMax(BSTree->root);
+}
+
+bool isBST(BSTnode *root, int max, int min){
+	if (root == NULL) return true;
+	if (root->_value > min && root->_value < max
+		&& isBST(root->leftChild, root->_value, min)
+		&& isBST(root->rightChild, max, root->_value))
+		return true;
+	else return false;
+}
+
+bool isBST(BST *BSTree){
+	return isBST(BSTree->root, MAX_IS_BST, MIN_IS_BST);
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
