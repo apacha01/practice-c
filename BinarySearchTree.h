@@ -195,4 +195,22 @@ int getMin(BST *BSTree){
 
 	return getMin(BSTree->root);
 }
+
+int getMax(BSTnode *root){
+	if (root->rightChild == NULL) return root->_value;
+	return getMax(root->rightChild);
+}
+
+int getMax(BST *BSTree){
+	//NON RECURSIVE (1ST IDEA)
+	// BSTnode *aux = BSTree->root;
+
+	// while(aux->rightChild != NULL){
+	// 	aux = aux->rightChild;
+	// }
+
+	// return aux->_value;
+
+	return getMax(BSTree->root);
+}
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

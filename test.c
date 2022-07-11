@@ -35,6 +35,7 @@ int main(){
 
 	printf("Height: %d\n", getHeight(&b));
 	printf("Min: %d\n", getMin(&b));
+	printf("Max: %d\n", getMax(&b));
 
 	
 
