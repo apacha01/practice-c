@@ -14,6 +14,10 @@ int main(){
 	insert(&b,8);
 	insert(&b,28);
 	insert(&b,27);
+	insert(&b,-1);
+	insert(&b,25);
+	insert(&b,2);
+	insert(&b,7);
 
 	printValues(&b);
 
@@ -29,7 +33,10 @@ int main(){
 	printf("%d\n\n", isInTree(&b, 22));
 	
 
-	printf("%d\n", getHeight(&b));
+	printf("Height: %d\n", getHeight(&b));
+	printf("Min: %d\n", getMin(&b));
+
+	
 
 	printf("\n\nFin\n\n");
 	deleteTree(&b);

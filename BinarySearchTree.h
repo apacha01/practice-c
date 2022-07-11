@@ -142,6 +142,7 @@ void deleteTree(BST *BSTree){
 }
 
 bool isInTree(BSTnode *root, int value){
+	if (root == NULL) return false;
 	if (root->_value == value) return true;
 	else if (root->leftChild == NULL && root->rightChild == NULL) return false;
 	else if (root->_value > value) return isInTree(root->leftChild, value);
@@ -151,13 +152,15 @@ bool isInTree(BSTnode *root, int value){
 bool isInTree(BST *BSTree, int value){
 	// NON RECURSIVE (1st IDEA)
 	// BSTnode *aux = BSTree->root;
-	//
+	
 	// while(aux){
 	// 	if (aux->_value == value) return true;
 	// 	if (aux->leftChild == NULL && aux->rightChild == NULL) return false;
 	// 	if (aux->_value > value) aux = aux->leftChild;
 	// 	if (aux->_value < value) aux = aux->rightChild;
 	// }
+
+	// return false;
 
 	return isInTree(BSTree->root, value);
 }
@@ -173,5 +176,23 @@ int getHeight(BSTnode *root){
 
 int getHeight(BST *BSTree){
 	return getHeight(BSTree->root);
+}
+
+int getMin(BSTnode *root){
+	if (root->leftChild == NULL) return root->_value;
+	return getMin(root->leftChild);
+}
+
+int getMin(BST *BSTree){
+	//NON RECURSIVE (1ST IDEA)
+	// BSTnode *aux = BSTree->root;
+
+	// while(aux->leftChild != NULL){
+	// 	aux = aux->leftChild;
+	// }
+
+	// return aux->_value;
+
+	return getMin(BSTree->root);
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
