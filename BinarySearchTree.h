@@ -249,6 +249,8 @@ BSTnode* searchValue(BSTnode *root, int value){
 }
 
 void deleteNode(BSTnode *root){
+	if (root == NULL) return;
+	
 	BSTnode *aux;
 	//LEAF
 	if (root->leftChild == NULL && root->rightChild == NULL){
