@@ -38,6 +38,11 @@ int main(){
 	printf("Max: %d\n", getMax(&b));
 	printf("Es BST: %d\n", isBST(&b));
 
+	printf("%d\n", getLeftmostNode(b.root)->_value);
+	printf("%d\n", getRightmostNode(b.root)->_value);
+	printf("%d\n", getRightmostNode(b.root->leftChild)->_value);
+	printf("%d\n", getLeftmostNode(b.root->rightChild->rightChild->rightChild)->_value);
+
 	printf("\n\nFin\n\n");
 	deleteTree(&b);
 	printValues(&b);

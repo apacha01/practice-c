@@ -34,17 +34,17 @@ typedef struct BST
 	BSTnode *root;
 }BST;
 /////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES/////////////////////////////////////////////////
-void insert(BST*/*tree*/, int/*value*/);				// insert value into tree
-int getNodeCount(BST*/*tree*/);							// get count of values stored
-void printValues(BST*/*tree*/);							// prints the values in the tree, from min to max
-void deleteTree(BST*/*tree*/);							// delets all nodes and resets the root
-bool isInTree(BST*/*tree*/, int/*value*/);				// returns true if given value exists in the tree
-int getHeight(BST*/*tree*/);							// returns the height in nodes (single node's height is 1)
-int getMin(BST*/*tree*/);								// returns the minimum value stored in the tree
-int getMax(BST*/*tree*/);								// returns the maximum value stored in the tree
-bool isBST(BST*/*tree*/);								// returns true if tree is BST, false otherwise
-void deleteValue(BST*/*tree*/, int/*value*/);			// deletes node with value
-BSTnode* getSuccessor(BST*/*tree*/, int/*value*/);		// returns next-highest value in tree after given value, -1 if none
+void insert(BST*/*tree*/, int/*value*/);			// insert value into tree
+int getNodeCount(BST*/*tree*/);						// get count of values stored
+void printValues(BST*/*tree*/);						// prints the values in the tree, from min to max
+void deleteTree(BST*/*tree*/);						// delets all nodes and resets the root
+bool isInTree(BST*/*tree*/, int/*value*/);			// returns true if given value exists in the tree
+int getHeight(BST*/*tree*/);						// returns the height in nodes (single node's height is 1)
+int getMin(BST*/*tree*/);							// returns the minimum value stored in the tree
+int getMax(BST*/*tree*/);							// returns the maximum value stored in the tree
+bool isBST(BST*/*tree*/);							// returns true if tree is BST, false otherwise
+void deleteValue(BST*/*tree*/, int/*value*/);		// deletes node with value
+BSTnode* getSuccessor(BST*/*tree*/, int/*value*/);	// returns next-highest value in tree after given value, -1 if none
 
 //AUXILIAR
 void BSTinit(BST*/*tree*/);								// initialize the BST
@@ -55,6 +55,8 @@ void postorder(BSTnode*/*root*/);						// prints values in postorder
 void addNode(BSTnode**/*root*/, BSTnode*/*node*/);		// adds a node
 BSTnode* searchValue(BSTnode*/*root*/, int/*value*/);	// returns pointer to node with value, NULL if not found
 void deleteNode(BSTnode*/*root*/);						// delets a node in tree
+BSTnode* getLeftmostNode(BSTnode*/*root*/);				// returns pointer to leftmost node, root if there's no leftChild
+BSTnode* getRightmostNode(BSTnode*/*root*/);			// returns pointer to rightmost node, root if there's no rightChild
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
 //AUXILIAR
 void BSTinit(BST *BSTree){
@@ -248,9 +250,19 @@ BSTnode* searchValue(BSTnode *root, int value){
 	else return searchValue(root->leftChild, value);
 }
 
+BSTnode* getLeftmostNode(BSTnode *root){
+	if (root->leftChild == NULL) return root;
+	return getLeftmostNode(root->leftChild);
+}
+
+BSTnode* getRightmostNode(BSTnode *root){
+	if (root->rightChild == NULL) return root;
+	return getRightmostNode(root->rightChild);
+}
+
 void deleteNode(BSTnode *root){
 	if (root == NULL) return;
-	
+
 	BSTnode *aux;
 	//LEAF
 	if (root->leftChild == NULL && root->rightChild == NULL){
@@ -282,11 +294,16 @@ void deleteNode(BSTnode *root){
 	//TWO CHILDREN
 	//ASD poner arriba asi me ahorro codigo al preguntar por un hijo? o asi para mejor lectura? A RESOLVER
 	else if(root->leftChild != NULL && root->rightChild != NULL){
-
+		aux = getLeftmostNode(root->rightChild);						// Gets leftmost child of its rightChild
+		root->_value = aux->_value;
+		deleteNode(aux);
 	}
 }
 
 void deleteValue(BST *BSTree, int value){
-	deleteNode(searchValue(BSTree->root, value));
+	BSTnode *aux = searchValue(BSTree->root, value);
+	printf("Value: %d\n", aux->_value);
+
+	deleteNode(aux);
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
