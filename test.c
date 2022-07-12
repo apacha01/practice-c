@@ -35,7 +35,7 @@ int main(){
 	insert(&b,8);
 	insert(&b,28);
 	insert(&b,27);
-	insert(&b,-1);
+	insert(&b,-5);
 	insert(&b,25);
 	insert(&b,2);
 	insert(&b,7);
@@ -70,8 +70,33 @@ int main(){
 
 	printf("\nSuccessor of 17: %d\n", getSuccessor(&b,17));
 	printf("Successor of 18: %d\n", getSuccessor(&b,18));
-	printf("Successor of 1: %d\n", getSuccessor(&b,1));
+	printf("Successor of 19: %d\n", getSuccessor(&b,19));
+	printf("Successor of 20: %d\n", getSuccessor(&b,20));
+	printf("Successor of 25: %d\n", getSuccessor(&b,25));
+	printf("Successor of 27: %d\n", getSuccessor(&b,27));
+	printf("Successor of 28: %d\n", getSuccessor(&b,28));
+	printf("Successor of 29: %d\n", getSuccessor(&b,29));
+	printf("Successor of 38: %d\n", getSuccessor(&b,38));
 	printf("Successor of 8: %d\n", getSuccessor(&b,8));
+	printf("Successor of 7: %d\n", getSuccessor(&b,7));
+	printf("Successor of 2: %d\n", getSuccessor(&b,2));
+	printf("Successor of 1: %d\n", getSuccessor(&b,1));
+	printf("Successor of -5: %d\n", getSuccessor(&b,-5));
+
+	printf("\nPredecessor of 17: %d\n", getPredecessor(&b,17));
+	printf("Predecessor of 18: %d\n", getPredecessor(&b,18));
+	printf("Predecessor of 19: %d\n", getPredecessor(&b,19));
+	printf("Predecessor of 20: %d\n", getPredecessor(&b,20));
+	printf("Predecessor of 25: %d\n", getPredecessor(&b,25));
+	printf("Predecessor of 27: %d\n", getPredecessor(&b,27));
+	printf("Predecessor of 28: %d\n", getPredecessor(&b,28));
+	printf("Predecessor of 29: %d\n", getPredecessor(&b,29));
+	printf("Predecessor of 38: %d\n", getPredecessor(&b,38));
+	printf("Predecessor of 8: %d\n", getPredecessor(&b,8));
+	printf("Predecessor of 7: %d\n", getPredecessor(&b,7));
+	printf("Predecessor of 2: %d\n", getPredecessor(&b,2));
+	printf("Predecessor of 1: %d\n", getPredecessor(&b,1));
+	printf("Predecessor of -5: %d\n", getPredecessor(&b,-5));
 
 	printf("\nComplete tree:\n");
 	printValues(&b);

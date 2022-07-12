@@ -10,7 +10,7 @@
 //  get_max // returns the maximum value stored in the tree
 //  is_binary_search_tree
 //  delete_value
-//  get_successor // returns next-highest value in tree after given value, -1 if none
+//  get_successor // returns next-higher value in tree after given value, -1 if none
 ///////////////////////////////////////////////////////BIBLIOTECAS///////////////////////////////////////////////////////
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,7 +44,7 @@ int getMin(BST*/*tree*/);							// returns the minimum value stored in the tree
 int getMax(BST*/*tree*/);							// returns the maximum value stored in the tree
 bool isBST(BST*/*tree*/);							// returns true if tree is BST, false otherwise
 void deleteValue(BST*/*tree*/, int/*value*/);		// deletes node with value
-int getSuccessor(BST*/*tree*/, int/*value*/);		// returns next-highest value in tree after given value, -1 if none
+int getSuccessor(BST*/*tree*/, int/*value*/);		// returns next-higher value in tree after given value, -1 if none
 
 //AUXILIAR
 void BSTinit(BST*/*tree*/);								// initialize the BST
@@ -67,7 +67,7 @@ void deleteNode(BSTnode*/*root*/);						// delets a node in tree
 BSTnode* deleteNode(BSTnode*/*root*/, int/*value*/);	// delets a node in tree
 BSTnode* getLeftmostNode(BSTnode*/*root*/);				// returns pointer to leftmost node, root if leftChild = NULL
 BSTnode* getRightmostNode(BSTnode*/*root*/);			// returns pointer to rightmost node, root if rightChild = NULL
-int getPredecessor(BST*/*tree*/, int/*value*/);			// returns next-lowest value in tree after given value,-1 if none
+int getPredecessor(BST*/*tree*/, int/*value*/);			// returns next-lower value in tree after given value,-1 if none
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
 //AUXILIAR
 void BSTinit(BST *BSTree){
@@ -393,16 +393,69 @@ void deleteValue(BST *BSTree, int value){
 
 //////////////////////////////////////////////getSuccessor////////////////////////////////////////////////
 int getSuccessor(BST* BSTree, int value){
+	//If it's the max number there's no successor
+	if (getMax(BSTree->root) == value) return -1;
+
 	BSTnode *aux = searchValue(BSTree->root,value);
+
+	//If it doesn't exist there's no successor
+	if (aux == NULL) return -1;
+
+	//Has right subtree
 	if (aux->rightChild != NULL) return getLeftmostNode(aux->rightChild)->_value;
-	if (aux->leftChild != NULL) return getLeftmostNode(aux->leftChild)->_value;
-	else return -1;
+
+	//Doesn't have right subtree
+	else if (aux->rightChild == NULL){
+		BSTnode *temp = aux;
+		
+		while(temp->_value <= value){
+			temp = temp->parent;
+		}
+
+		return temp->_value;
+
+		//NO PARENT POINTER VERSION (from internet)
+		/*
+		BSTnode *succesor = NULL;
+		BSTnode *ancestor = root;
+		while(ancestor != aux){
+			if (aux->_value < ancestor->_value){
+				succesor = ancestor;
+				ancestor = ancestor->leftChild;
+			}
+			else{
+				ancestor = ancestor->rightChild;
+			}
+		}
+
+		if (succesor == NULL) return -1;
+		else return succesor;
+		*/
+	}
 }
 
 /////////////////////////////////////////////getPredecessor///////////////////////////////////////////////
 int getPredecessor(BST* BSTree, int value){
+	//If it's the min number there's no predecessor
+	if (getMin(BSTree->root) == value) return -1;
+
 	BSTnode *aux = searchValue(BSTree->root,value);
+
+	//If it doesn't exist there's no predecessor
+	if (aux == NULL) return -1;
+
+	//Has left child
 	if (aux->leftChild != NULL) return getRightmostNode(aux->leftChild)->_value;
-	else return -1;
+
+	//Doesn't have left child
+	else if (aux->leftChild == NULL){
+		BSTnode *temp = aux;
+		
+		while(temp->_value >= value){
+			temp = temp->parent;
+		}
+
+		return temp->_value;
+	}
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////
