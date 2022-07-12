@@ -44,7 +44,7 @@ int getMin(BST*/*tree*/);							// returns the minimum value stored in the tree
 int getMax(BST*/*tree*/);							// returns the maximum value stored in the tree
 bool isBST(BST*/*tree*/);							// returns true if tree is BST, false otherwise
 void deleteValue(BST*/*tree*/, int/*value*/);		// deletes node with value
-BSTnode* getSuccessor(BST*/*tree*/, int/*value*/);	// returns next-highest value in tree after given value, -1 if none
+int getSuccessor(BST*/*tree*/, int/*value*/);		// returns next-highest value in tree after given value, -1 if none
 
 //AUXILIAR
 void BSTinit(BST*/*tree*/);								// initialize the BST
@@ -53,11 +53,21 @@ void preorder(BSTnode*/*root*/);						// prints values in preorder
 void inorder(BSTnode*/*root*/);							// prints values in inorder
 void postorder(BSTnode*/*root*/);						// prints values in postorder
 void addNode(BSTnode**/*root*/, BSTnode*/*node*/);		// adds a node
+void printValuesAsTree(BSTnode*/*root*/,int /*space*/);	// prints values as a tree leftshifted
+void printValuesAsTree(BST*/*tree*/);					// prints values as a tree leftshifted
+int getNodeCount(BSTnode*/*root*/);						// get count of values stored
+void deleteTree(BSTnode*/*root*/);						// delets all nodes and resets the root
+bool isInTree(BSTnode*/*root*/, int/*value*/);			// returns true if given value exists in the tree
+int getHeight(BSTnode*/*root*/);						// returns the height in nodes (single node's height is 1)
+int getMin(BSTnode*/*root*/);							// returns the minimum value stored in the tree
+int getMax(BSTnode*/*root*/);							// returns the maximum value stored in the tree
+bool isBST(BSTnode*/*root*/);							// returns true if tree is BST, false otherwise
 BSTnode* searchValue(BSTnode*/*root*/, int/*value*/);	// returns pointer to node with value, NULL if not found
 void deleteNode(BSTnode*/*root*/);						// delets a node in tree
-BSTnode* getLeftmostNode(BSTnode*/*root*/);				// returns pointer to leftmost node, root if no leftChild exists
-BSTnode* getRightmostNode(BSTnode*/*root*/);			// returns pointer to rightmost node, root if no rightChild exists
-BSTnode* getPredecessor(BST*/*tree*/, int/*value*/);	// returns next-lowest value in tree after given value, -1 if none
+BSTnode* deleteNode(BSTnode*/*root*/, int/*value*/);	// delets a node in tree
+BSTnode* getLeftmostNode(BSTnode*/*root*/);				// returns pointer to leftmost node, root if leftChild = NULL
+BSTnode* getRightmostNode(BSTnode*/*root*/);			// returns pointer to rightmost node, root if rightChild = NULL
+int getPredecessor(BST*/*tree*/, int/*value*/);			// returns next-lowest value in tree after given value,-1 if none
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
 //AUXILIAR
 void BSTinit(BST *BSTree){
@@ -118,7 +128,7 @@ void addNode(BSTnode **root, BSTnode *node){
 	}
 }
 
-//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////insert///////////////////////////////////////////////////
 void insert(BST *BSTree, int value){
 	addNode(&(BSTree->root), createNode(value));
@@ -132,6 +142,21 @@ void printValues(BST *BSTree){
 	printf("\n");
 }
 
+void printValuesAsTree(BSTnode *root, int space){	//space should be amount of digits in the data of each node
+	if (root == NULL) return;
+	else{
+		printValuesAsTree(root->rightChild, space+1);
+		for (int i = 0; i < space; ++i){
+			printf("  ");
+		}
+		printf("%d\n", root->_value);
+		printValuesAsTree(root->leftChild,space+1);
+	}
+}
+
+void printValuesAsTree(BST *BSTree){
+	printValuesAsTree(BSTree->root, 0);
+}
 //////////////////////////////////////////////getNodeCount////////////////////////////////////////////////
 int getNodeCount(BSTnode *root){
 	if (root == NULL) return 0;
@@ -281,6 +306,7 @@ void deleteNode(BSTnode *root){
 		else root->parent->rightChild = NULL;									// If its right child
 		
 		free(root);
+		root = NULL;
 	}
 
 	//ONE CHILD
@@ -296,7 +322,7 @@ void deleteNode(BSTnode *root){
 		root = root->leftChild;											// Overwrite root as its child
 
 		free(aux);														// Free the original child (now copied in parent)
-
+		root = NULL;
 		// 2nd IDEA (Recursive until leaf node, O(n) -> n = number of leftChildren in each node)
 		//root->_value = root->leftChild->_value;
 		//deleteNode(root->leftChild);
@@ -314,10 +340,10 @@ void deleteNode(BSTnode *root){
 		root = root->rightChild;										// Overwrite root as its child
 
 		free(aux);														// Free the original child (now copied in parent)
+		aux = NULL;
 	}
 	
 	//TWO CHILDREN
-	//ASD poner arriba asi me ahorro codigo al preguntar por un hijo? o asi para mejor lectura? A RESOLVER
 	else if(root->leftChild != NULL && root->rightChild != NULL){
 		aux = getLeftmostNode(root->rightChild);						// Gets leftmost child of its rightChild
 		root->_value = aux->_value;										// Replace current node value with the leftmost
@@ -325,21 +351,58 @@ void deleteNode(BSTnode *root){
 	}
 }
 
+// Recursive version after internet research
+BSTnode* deleteNode(BSTnode *root, int value){
+	if (root == NULL) return root;
+	else if (value < root->_value) root->leftChild = deleteNode(root->leftChild, value);
+	else if (value > root->_value) root->rightChild = deleteNode(root->rightChild, value);
+	else {
+		//Leaf node
+		if (root->leftChild == NULL && root->rightChild == NULL){
+			free(root);
+			root = NULL;
+		}
+		//1 child
+		else if (root->leftChild == NULL){
+			BSTnode *aux = root;
+			root->rightChild->parent = root->parent;
+			root = root->rightChild;
+			free(aux);
+		}
+		else if (root->rightChild == NULL){
+			BSTnode *aux = root;
+			root->leftChild->parent = root->parent;
+			root = root->leftChild;
+			free(aux);
+		}
+		//2 children
+		else{
+			BSTnode *aux = getLeftmostNode(root->rightChild);
+			root->_value = aux->_value;
+			root->rightChild = deleteNode(root->rightChild, aux->_value);
+		}
+
+	}
+	return root;
+}
+
 void deleteValue(BST *BSTree, int value){
-	deleteNode(searchValue(BSTree->root, value));
+	deleteNode(BSTree->root, value);
+	//deleteNode(searchValue(BSTree->root, value));
 }
 
 //////////////////////////////////////////////getSuccessor////////////////////////////////////////////////
-BSTnode* getSuccessor(BST* BSTree, int value){
+int getSuccessor(BST* BSTree, int value){
 	BSTnode *aux = searchValue(BSTree->root,value);
-	if (aux->rightChild != NULL) return getLeftmostNode(aux->rightChild);
-	else return NULL;
+	if (aux->rightChild != NULL) return getLeftmostNode(aux->rightChild)->_value;
+	if (aux->leftChild != NULL) return getLeftmostNode(aux->leftChild)->_value;
+	else return -1;
 }
 
 /////////////////////////////////////////////getPredecessor///////////////////////////////////////////////
-BSTnode* getPredecessor(BST* BSTree, int value){
+int getPredecessor(BST* BSTree, int value){
 	BSTnode *aux = searchValue(BSTree->root,value);
-	if (aux->leftChild != NULL) return getRightmostNode(aux->leftChild);
-	else return NULL;
+	if (aux->leftChild != NULL) return getRightmostNode(aux->leftChild)->_value;
+	else return -1;
 }
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

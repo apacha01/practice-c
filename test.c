@@ -14,14 +14,17 @@ int main(){
 *			1				18
 *		   / \					\
 *		-1		8					19
-*			  /					   /   \
-*			2					 20		28
-*			  \						  /
-*				7					27
-*								  /
-*								25
+*			  /					       \
+*			2					 		20
+*			  \						  	   \
+*				7							28
+*									  	  /	   \
+*										27		29
+*								  	  /			  \
+*									25				38
 *
-*		Height = 5	-	Node Count = 12	-	smallest = -1	-	greatest = 28	-	isBST = true
+*		Height = 6	-	Node Count = 14	-	smallest = -1	-	greatest = 38	-	isBST = true
+*		
 */
 
 	insert(&b,17);
@@ -36,10 +39,13 @@ int main(){
 	insert(&b,25);
 	insert(&b,2);
 	insert(&b,7);
+	insert(&b,29);
+	insert(&b,38);
 
 	printValues(&b);
+	printValuesAsTree(&b);
 
-	printf("%d\n", getNodeCount(&b));
+	printf("\nNode Count: %d\n", getNodeCount(&b));
 
 	printf("\n%d\n", isInTree(&b, 1));
 	printf("%d\n", isInTree(&b, 18));
@@ -56,12 +62,18 @@ int main(){
 	printf("Max: %d\n", getMax(&b));
 	printf("Es BST: %d\n", isBST(&b));
 
-	printf("\n%d\n", getLeftmostNode(b.root)->_value);
-	printf("%d\n", getRightmostNode(b.root)->_value);
-	printf("%d\n", getRightmostNode(b.root->leftChild)->_value);
-	printf("%d\n", getLeftmostNode(b.root->rightChild->rightChild->rightChild)->_value);
+	printf("\n%d\n", getLeftmostNode(b.root)->_value);	//min
+	printf("%d\n", getRightmostNode(b.root)->_value);	//max
+	printf("%d\n", getRightmostNode(b.root->leftChild)->_value);	//predecessor
+	printf("%d\n", getLeftmostNode(b.root->rightChild->rightChild->rightChild)->_value);	//20 (no left subtree)
 
-	printf("\n");
+
+	printf("\nSuccessor of 17: %d\n", getSuccessor(&b,17));
+	printf("Successor of 18: %d\n", getSuccessor(&b,18));
+	printf("Successor of 1: %d\n", getSuccessor(&b,1));
+	printf("Successor of 8: %d\n", getSuccessor(&b,8));
+
+	printf("\nComplete tree:\n");
 	printValues(&b);
 	
 	printf("\nDeleting number 7...\n");
@@ -88,11 +100,18 @@ int main(){
 
 	printValues(&b);
 
+	printf("\n");
+	printValuesAsTree(&b);
+	printf("\nHeight: %d\n", getHeight(&b));
+	printf("Min: %d\n", getMin(&b));
+	printf("Max: %d\n", getMax(&b));
+	printf("Es BST: %d\n", isBST(&b));
+
 
 	printf("\nDeleting tree...\n");
 	deleteTree(&b);
 	printValues(&b);
-	printf("\n\nFin");
+	printf("\n\nEnd");
 	return 0;
 }
 ////////////////////////////////////////////////////////FUNCIONES////////////////////////////////////////////////////////
