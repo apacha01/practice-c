@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "vectorDinamico.h"
+#include "DynamicArray.h"
 
 int main(){
 	struct Vector v1;

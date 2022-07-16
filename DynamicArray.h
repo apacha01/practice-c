@@ -31,36 +31,36 @@
 #define resizeFactor 2
 #define initialLength 16
 //////////////////////////////////////////////////VARIABLES GLOBALES/////////////////////////////////////////////////////
-struct Vector
+typedef struct Vector
 {
 	int *p;
 	int *_size;
 	int *_capacity;
-};
+}Vector;
 //////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES////////////////////////////////////////////////
 //DE LAS CONSIGNAS
-int size(struct Vector*);									//Devuelve size
-int capacity(struct Vector*);								//Devuelve capacity
-bool isEmpty(struct Vector*);								//true si esta vacio, false si no.
-int at(struct Vector*, int/*índice*/);						//Devuelve el valor en índice.
-void push(struct Vector*, int*/*vector*/, int/*valor*/);	//Inserta valor al final del array.
-void insert(struct Vector*, int/*indice*/, int/*valor*/);	//Inserta valor en índice y mueve los valores que le sigan a la derecha.
-void prepend(struct Vector*, int/*valor*/);					//Inserta valor al inicio del array.
-int pop(struct Vector*);									//Elimina el último valor y lo devuelve.
-void erase(struct Vector*, int/*índice*/);					//Elimina valor en índice y mueve los valores siguientes a la izquierda.
-void removeAll(struct Vector*, int/*valor*/);				//Elimina todas las coincidencias de valor.
-int find(struct Vector*, int/*valor*/);						//Busca valor y devuelve el primer índice que coincida. -1 si no encuentra.
-void resize(struct Vector*, int/*nueva capacidad*/);		//Cambia el tamaño del array.
-void init(struct Vector*);									//Inicializa el vector dinámico (reserva el espacio en memoria).
+int size(Vector*);									// returns size
+int capacity(Vector*);								// returns capacity
+bool isEmpty(Vector*);								// true if empty, false otherwise
+int at(Vector*, int/*index*/);						// returns value at index
+void push(Vector*, int*/*vector*/, int/*value*/);	// inserts value at the end of the array
+void insert(Vector*, int/*index*/, int/*value*/);	// inserts value at index. shifts that index's value and trailing elements to the right
+void prepend(Vector*, int/*value*/);				// inserts value at index 0
+int pop(Vector*);									// remove last value and returns it
+void erase(Vector*, int/*index*/);					// delete item at index, shifting all trailing elements left
+void removeAll(Vector*, int/*value*/);				// Elimina todas las coincidencias de value
+int find(Vector*, int/*value*/);					// looks for value and returns first index with that value, -1 if not found
+void resize(Vector*, int/*new capacity*/);			// resize the array
+void init(Vector*);									// initialize the dynamic array (reserves needed memory)
 
 //AUXILIARES
-void incrementSize(struct Vector*);							//Incrementa size y resize si es necesario.
-void decrementSize(struct Vector*);							//Decrementa size y resize si es necesario.
-void moveTo(struct Vector*, int, char);						//Mueve hacia izq o der (para insert y delete).
-void ownRealloc(struct Vector*, int /*nueva capacidad*/);	//Mismo objetivo que realloc pero propia.
+void incrementSize(Vector*);							//Incrementa size y resize si es necesario.
+void decrementSize(Vector*);							//Decrementa size y resize si es necesario.
+void moveTo(Vector*, int, char);						//Mueve hacia izq o der (para insert y delete).
+void ownRealloc(Vector*, int /*new capacity*/);			//Mismo objetivo que realloc pero propia.
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
-//AUXILIARES
-void init(struct Vector *v){
+//AUXILIAR
+void init(Vector *v){
 	v->p = (int *)calloc(initialLength,sizeof(int));
 	v->_size = (v->p)-1;
 	v->_capacity = (v->p)-2;
@@ -69,21 +69,21 @@ void init(struct Vector *v){
 	*v->_capacity = initialLength;
 }
 
-void incrementSize(struct Vector *v){
+void incrementSize(Vector *v){
 	*v->_size += 1;
 	if (size(v) == capacity(v)) {
 		resize(v,(capacity(v)*resizeFactor));
 	}
 }
 
-void decrementSize(struct Vector *v){
+void decrementSize(Vector *v){
 	*v->_size -= 1;
 	if (size(v) == (capacity(v)/4)) {
 		resize(v,(capacity(v)/resizeFactor));
 	}
 }
 
-void moveTo(struct Vector *v, int index, char c){
+void moveTo(Vector *v, int index, char c){
 	if (c == 'r') {
 		for (int i = size(v); i > index; i--) {
 			*(v->p + i) = *(v->p + i-1);
@@ -96,59 +96,59 @@ void moveTo(struct Vector *v, int index, char c){
 	}
 }
 
-void ownRealloc(struct Vector *v, int newCapacity){
-	struct Vector vCpy = *v;
+void ownRealloc(Vector *v, int newCapacity){
+	Vector vCpy = *v;
 	v->p = (int *)calloc(newCapacity, sizeof(int));
 	for (int i = 0; i < size(&vCpy); i++) {
 		*(v->p+i) = *(vCpy.p+i);
 	}
 }
 
-//DE LAS CONSIGNAS
-int size(struct Vector *v){
+//FOR THE USER
+int size(Vector *v){
 	return *v->_size;
 }
 
-int capacity(struct Vector *v){
+int capacity(Vector *v){
 	return *v->_capacity;
 }
 
-bool isEmpty(struct Vector *v){
+bool isEmpty(Vector *v){
 	return *v->_size == 0;
 }
 
-int at(struct Vector *v, int index){
+int at(Vector *v, int index){
 	return *((v->p)+index);
 }
 
-void push(struct Vector *v, int item){
+void push(Vector *v, int item){
 	*((v->p)+size(v)) = item;
 	incrementSize(v);
 }
 
-void insert(struct Vector *v, int index, int item){
+void insert(Vector *v, int index, int item){
 	moveTo(v,index,'r');
 	*(v->p + index) = item;
 	incrementSize(v);
 }
 
-void prepend(struct Vector *v, int item){
+void prepend(Vector *v, int item){
 	insert(v,0,item);
 }
 
-int pop(struct Vector *v){
+int pop(Vector *v){
 	int a = *(v->p+size(v)-1);
 	*(v->p + size(v) - 1) = 0;
 	decrementSize(v);
 	return a;
 }
 
-void erase(struct Vector *v, int index){
+void erase(Vector *v, int index){
 	moveTo(v,index,'l');
 	decrementSize(v);
 }
 
-void removeAll(struct Vector *v, int item){
+void removeAll(Vector *v, int item){
 	for (int i = 0; i < size(v); i++)
 	{
 		if (*(v->p+i) == item)
@@ -161,7 +161,7 @@ void removeAll(struct Vector *v, int item){
 	}
 }
 
-int find(struct Vector *v, int item){
+int find(Vector *v, int item){
 	for (int i = 0; i < size(v); i++) {
 		if (*(v->p + i) == item)
 		{
@@ -171,7 +171,7 @@ int find(struct Vector *v, int item){
 	return -1;
 }
 
-void resize(struct Vector *v, int newCapacity){
+void resize(Vector *v, int newCapacity){
 	*v->_capacity = newCapacity;
 	ownRealloc(v,newCapacity);
 }
