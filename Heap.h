@@ -8,8 +8,8 @@
 * extract_max // returns the max item, removing it
 * sift_down // needed for extract_max
 * remove(x) // removes item at index x
-* MaxHeapify // create a heap from an array of elements, needed for MaxHeap_sort
-* MaxHeap_sort() // take an unsorted array and turn it into a sorted array in-place using a max heap or min heap
+* heapify // create a heap from an array of elements, needed for heap_sort
+* heap_sort() // take an unsorted array and turn it into a sorted array in-place using a max heap or min heap
 */
 ///////////////////////////////////////////////////////BIBLIOTECAS///////////////////////////////////////////////////////
 #include <stdio.h>
@@ -35,9 +35,9 @@ bool isEmpty(MaxHeap*);						// returns true if heap contains no elements
 int extractMax(MaxHeap*);					// returns the max item, removing it
 void siftDown(MaxHeap*, int/*index*/);		// needed for extract_max
 void remove(MaxHeap*, int/*index*/);		// removes item at index
-void MaxHeapify(MaxHeap*);					// create a heap from an array of elements, needed for heap_sort
-void MaxHeapsort(MaxHeap*);					// take unsorted array and sort it in-place using max or min heap
-void MaxHeapsort(int*);						// take unsorted array and sort it in-place using max or min heap
+void heapify(MaxHeap*);						// create a heap from an array of elements, needed for heap_sort
+void heapsort(MaxHeap*);					// take unsorted array and sort it in-place using max or min heap
+void heapsort(int*);						// take unsorted array and sort it in-place using max or min heap
 
 //AUXILIAR
 int parent(int/*index*/);					// returns index of parent of i
