@@ -72,9 +72,11 @@ void printHeap(MaxHeap* h){
 }
 /////////////////////////////////////insert/////////////////////////////////////
 void insert(MaxHeap* heap, int value){
+	// insert at last index
 	push(&heap->arr, value);
 
-	siftUp(heap, getSize(&heap->arr)-1);	// siftUp if necessary
+	// siftUp if necessary
+	siftUp(heap, getSize(&heap->arr)-1);
 }
 
 /////////////////////////////////////siftUp/////////////////////////////////////
@@ -83,7 +85,10 @@ void siftUp(MaxHeap* heap, int index){
 	int parentValue = valueAt(&heap->arr, parentIndex);
 	int actualValue = valueAt(&heap->arr, index);
 
-	//			get value at parents index					compare with value
+	// base case
+	if (parentValue > actualValue) return;
+
+	//  compare parent with child	check index to avoid index out of bounds errors
 	if (parentValue < actualValue && parentIndex >= 0 && parentIndex < index){
 		changeValue(&heap->arr, index, parentValue);
 		changeValue(&heap->arr, parentIndex, actualValue);
@@ -106,10 +111,72 @@ bool isEmpty(MaxHeap *h){
 }
 
 ///////////////////////////////////extractMax///////////////////////////////////
+int extractMax(MaxHeap *h){
+	int aux = getMax(h);
+
+	// put last value at index 0
+	changeValue(&h->arr, 0, valueAt(&h->arr, getSize(h)-1));
+	
+	// delete last value
+	pop(&h->arr);
+
+	// siftDown if necessary
+	siftDown(h, 0);
+
+	return aux;
+}
 
 ////////////////////////////////////siftDown////////////////////////////////////
+void siftDown(MaxHeap *h, int index){
+	int actual = valueAt(&h->arr, index);
+	int leftChildIndex = leftChild(index);
+	int rightChildIndex = rightChild(index);
+	int leftChildValue = valueAt(&h->arr, leftChildIndex);
+	int rightChildValue = valueAt(&h->arr, rightChildIndex);
+	
+	// get child with greater value
+	int maxChild = max(leftChildValue, rightChildValue);
+
+	// base case, return when it has no children
+	if (leftChildIndex < 0 && leftChildIndex >= getSize(h) &&
+		rightChildIndex < 0 && rightChildIndex >= getSize(h)) return;
+
+	// when its greater than its children stop going down
+	if (actual > leftChildValue && actual > rightChildValue) return;
+
+	// if left child is bigger or equal change with it and siftDown again
+	if (maxChild == leftChildValue){
+		changeValue(&h->arr, index, leftChildValue);
+		changeValue(&h->arr, leftChildIndex, actual);
+		siftDown(h, leftChildIndex);
+	}
+	// if right child is bigger change with it and siftDown again
+	else if(maxChild == rightChildValue){
+		changeValue(&h->arr, index, rightChildValue);
+		changeValue(&h->arr, rightChildIndex, actual);
+		siftDown(h, rightChildIndex);
+	}
+	// error (one has to be bigger or equal than the other)
+	else printf("ERROR.\n");
+}
 
 /////////////////////////////////////remove/////////////////////////////////////
+void remove(MaxHeap *h, int index){
+
+	// put last value at index
+	changeValue(&h->arr, index, valueAt(&h->arr, getSize(h)-1));
+
+	// delete last value
+	pop(&h->arr);
+
+	// siftDown if necessary
+
+	// -1 cause i poped the last item before, so if it wants to remove last
+	//	item then index is out of bounds
+	if (index == getSize(h)) siftDown(h, index-1);
+	else siftDown(h, index);
+
+}
 
 ////////////////////////////////////heapify/////////////////////////////////////
 

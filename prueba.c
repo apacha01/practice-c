@@ -23,13 +23,29 @@ int main(){
 	insert(&h, 180);
 	insert(&h, 150);
 	insert(&h, 50);
+	insert(&h, 65);
 
 	printHeap(&h);
 
 	printf("\nMax: %d\n", getMax(&h));
 	printf("\nSize (number of nodes): %d\n", getSize(&h));
 	printf("\nEmpty? %d\n", isEmpty(&h));
+	printf("\nExtractMax: %d\n", extractMax(&h));
+	printf("\nMax: %d\n", getMax(&h));
 
+	printHeap(&h);
+
+	printf("\nRemoving 120 from heap...\n");
+	remove(&h, 1);
+	printHeap(&h);
+
+	printf("\nRemoving 150 from heap...\n");
+	remove(&h, 7);
+	printHeap(&h);
+
+	printf("\n\nHeap at the end of program:\n");
+	printHeap(&h);
+	printf("END\n");
 
 	return 0;
 }
