@@ -12,6 +12,20 @@
 
 //////////////////////////////////////////////////////////Main///////////////////////////////////////////////////////////
 int main(){
+	MaxHeap h;
+
+	maxHeapInit(&h);
+	insert(&h, 170);
+	insert(&h, 120);
+	insert(&h, 190);
+	insert(&h, 10);
+	insert(&h, 70);
+	insert(&h, 180);
+	insert(&h, 150);
+	insert(&h, 50);
+
+	printHeap(&h);
+
 
 	return 0;
 }

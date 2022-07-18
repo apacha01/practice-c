@@ -39,25 +39,26 @@ typedef struct Vector
 }Vector;
 //////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES////////////////////////////////////////////////
 //DE LAS CONSIGNAS
-int size(Vector*);									// returns size
-int capacity(Vector*);								// returns capacity
+int getSize(Vector*);								// returns size
+int getCapacity(Vector*);							// returns capacity
 bool isEmpty(Vector*);								// true if empty, false otherwise
-int at(Vector*, int/*index*/);						// returns value at index
+int valueAt(Vector*, int/*index*/);					// returns value at index
 void push(Vector*, int*/*vector*/, int/*value*/);	// inserts value at the end of the array
-void insert(Vector*, int/*index*/, int/*value*/);	// inserts value at index. shifts that index's value and trailing elements to the right
+void insert(Vector*, int/*index*/, int/*value*/);	// inserts value at index. shifts that index's value and trailing elements to right
 void prepend(Vector*, int/*value*/);				// inserts value at index 0
 int pop(Vector*);									// remove last value and returns it
 void erase(Vector*, int/*index*/);					// delete item at index, shifting all trailing elements left
-void removeAll(Vector*, int/*value*/);				// Elimina todas las coincidencias de value
+void removeAll(Vector*, int/*value*/);				// remove all matches for value
 int find(Vector*, int/*value*/);					// looks for value and returns first index with that value, -1 if not found
 void resize(Vector*, int/*new capacity*/);			// resize the array
 void init(Vector*);									// initialize the dynamic array (reserves needed memory)
 
 //AUXILIARES
-void incrementSize(Vector*);							//Incrementa size y resize si es necesario.
-void decrementSize(Vector*);							//Decrementa size y resize si es necesario.
-void moveTo(Vector*, int, char);						//Mueve hacia izq o der (para insert y delete).
-void ownRealloc(Vector*, int /*new capacity*/);			//Mismo objetivo que realloc pero propia.
+void incrementSize(Vector*);							// increment size and resize if necessary
+void decrementSize(Vector*);							// decrement size and resize if necessary
+void moveTo(Vector*, int, char);						// moves values to left or right according to given char (for insert & delete).
+void ownRealloc(Vector*, int /*new capacity*/);			// realloc but own version
+void changeValue(Vector*, int/*index*/, int/*value*/);	// changes value at index with given value
 /////////////////////////////////////////////////FUNCIONES///////////////////////////////////////////////////////////////
 //AUXILIAR
 void init(Vector *v){
@@ -71,26 +72,26 @@ void init(Vector *v){
 
 void incrementSize(Vector *v){
 	*v->_size += 1;
-	if (size(v) == capacity(v)) {
-		resize(v,(capacity(v)*resizeFactor));
+	if (getSize(v) == getCapacity(v)) {
+		resize(v,(getCapacity(v)*resizeFactor));
 	}
 }
 
 void decrementSize(Vector *v){
 	*v->_size -= 1;
-	if (size(v) == (capacity(v)/4)) {
-		resize(v,(capacity(v)/resizeFactor));
+	if (getSize(v) == (getCapacity(v)/4)) {
+		resize(v,(getCapacity(v)/resizeFactor));
 	}
 }
 
 void moveTo(Vector *v, int index, char c){
 	if (c == 'r') {
-		for (int i = size(v); i > index; i--) {
+		for (int i = getSize(v); i > index; i--) {
 			*(v->p + i) = *(v->p + i-1);
 		}
 	}
 	if (c == 'l') {
-		for (int i = index; i < size(v) - 1; i++) {
+		for (int i = index; i < getSize(v) - 1; i++) {
 			*(v->p + i) = *(v->p + i + 1);
 		}
 	}
@@ -99,17 +100,21 @@ void moveTo(Vector *v, int index, char c){
 void ownRealloc(Vector *v, int newCapacity){
 	Vector vCpy = *v;
 	v->p = (int *)calloc(newCapacity, sizeof(int));
-	for (int i = 0; i < size(&vCpy); i++) {
+	for (int i = 0; i < getSize(&vCpy); i++) {
 		*(v->p+i) = *(vCpy.p+i);
 	}
 }
 
+void changeValue(Vector *v, int index, int value){
+	*((v->p)+index) = value;
+}
+
 //FOR THE USER
-int size(Vector *v){
+int getSize(Vector *v){
 	return *v->_size;
 }
 
-int capacity(Vector *v){
+int getCapacity(Vector *v){
 	return *v->_capacity;
 }
 
@@ -117,12 +122,12 @@ bool isEmpty(Vector *v){
 	return *v->_size == 0;
 }
 
-int at(Vector *v, int index){
+int valueAt(Vector *v, int index){
 	return *((v->p)+index);
 }
 
 void push(Vector *v, int item){
-	*((v->p)+size(v)) = item;
+	*((v->p)+getSize(v)) = item;
 	incrementSize(v);
 }
 
@@ -137,8 +142,8 @@ void prepend(Vector *v, int item){
 }
 
 int pop(Vector *v){
-	int a = *(v->p+size(v)-1);
-	*(v->p + size(v) - 1) = 0;
+	int a = *(v->p+getSize(v)-1);
+	*(v->p + getSize(v) - 1) = 0;
 	decrementSize(v);
 	return a;
 }
@@ -149,7 +154,7 @@ void erase(Vector *v, int index){
 }
 
 void removeAll(Vector *v, int item){
-	for (int i = 0; i < size(v); i++)
+	for (int i = 0; i < getSize(v); i++)
 	{
 		if (*(v->p+i) == item)
 		{
@@ -162,7 +167,7 @@ void removeAll(Vector *v, int item){
 }
 
 int find(Vector *v, int item){
-	for (int i = 0; i < size(v); i++) {
+	for (int i = 0; i < getSize(v); i++) {
 		if (*(v->p + i) == item)
 		{
 			return i;
