@@ -26,8 +26,8 @@ int main(){
 
 	printHeap(&h);
 
-
 	printf("\nMax: %d\n", getMax(&h));
+	printf("\nSize (number of nodes): %d\n", getSize(&h));
 
 
 	return 0;
