@@ -28,6 +28,7 @@ int main(){
 
 	printf("\nMax: %d\n", getMax(&h));
 	printf("\nSize (number of nodes): %d\n", getSize(&h));
+	printf("\nEmpty? %d\n", isEmpty(&h));
 
 
 	return 0;
