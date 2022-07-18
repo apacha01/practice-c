@@ -29,7 +29,7 @@ typedef struct MaxHeap
 /////////////////////////////////////////////////PROTOTIPOS DE FUNCIONES/////////////////////////////////////////////////
 void insert(MaxHeap*, int/*value*/);
 void siftUp(MaxHeap*, int/*index*/);		// needed for insert
-void getMax(MaxHeap*);						// returns the max item, without removing it
+int getMax(MaxHeap*);						// returns the max item, without removing it
 int getSize(MaxHeap*);						// return number of elements stored
 bool isEmpty(MaxHeap*);						// returns true if heap contains no elements
 int extractMax(MaxHeap*);					// returns the max item, removing it
@@ -91,6 +91,9 @@ void siftUp(MaxHeap* heap, int index){
 	}
 }
 /////////////////////////////////////getMax/////////////////////////////////////
+int getMax(MaxHeap *h){
+	return valueAt(&h->arr, 0);
+}
 
 ////////////////////////////////////getSize/////////////////////////////////////
 
