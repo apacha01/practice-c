@@ -35,8 +35,7 @@ bool isEmpty(MaxHeap*);						// returns true if heap contains no elements
 int extractMax(MaxHeap*);					// returns the max item, removing it
 void siftDown(MaxHeap*, int/*index*/);		// needed for extract_max
 void remove(MaxHeap*, int/*index*/);		// removes item at index
-void heapify(MaxHeap*);						// create a heap from an array of elements, needed for heap_sort
-void heapsort(MaxHeap*);					// takes a maxheap and sorts it in-place using max or min heap
+void heapify(int*);							// create a heap from an array of elements, needed for heap_sort
 void heapsort(int*);						// takes unsorted array and sorts it in-place using max or min heap
 
 //AUXILIAR
@@ -52,7 +51,7 @@ void maxHeapInit(MaxHeap* heap){
 
 int parent(int i){
 	// Using index 0
-	return (i%2 == 0) ? (i/2)-1 : i/2;
+	return (i-1)/2;
 }
 
 int leftChild(int i){
@@ -95,6 +94,7 @@ void siftUp(MaxHeap* heap, int index){
 		siftUp(heap, parentIndex);
 	}
 }
+
 /////////////////////////////////////getMax/////////////////////////////////////
 int getMax(MaxHeap *h){
 	return valueAt(&h->arr, 0);
@@ -179,8 +179,42 @@ void remove(MaxHeap *h, int index){
 }
 
 ////////////////////////////////////heapify/////////////////////////////////////
+void heapify(int *arr, int size, int index){
+	int leftChildIndex = leftChild(index);
+	int rightChildIndex = rightChild(index);
+	int largest = index;
+
+	//	if index is within arr 		if left child is greater tha parent
+	if (leftChildIndex < size && *(arr+leftChildIndex) > *(arr+largest))
+		largest = leftChildIndex;
+
+	//	if index is within arr 		if right child is greater tha parent
+	if (rightChildIndex < size && *(arr+rightChildIndex) > *(arr+largest))
+		largest = rightChildIndex;
+
+	if (largest != index){
+		int aux = *(arr+index);
+		*(arr+index) = *(arr+largest);
+		*(arr+largest) = aux;
+		heapify(arr, size, largest);
+	}
+}
 
 ////////////////////////////////////heapsort////////////////////////////////////
+void heapsort(int *arr, int size){
+	int aux;
 
+	for (int i = (size/2) - 1; i >= 0; i--){
+		heapify(arr, size, i);
+	}
+
+	for (int i = size-1; i >= 0; i--){
+		aux = *arr;
+		*arr = *(arr + i);
+		*(arr + i) = aux;
+		heapify(arr, i, 0);
+	}
+
+}
 
 ///////////////////////////////////////////////////////////FIN///////////////////////////////////////////////////////////

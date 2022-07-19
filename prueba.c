@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////Main///////////////////////////////////////////////////////////
 int main(){
 	MaxHeap h;
+	int arr[20] = {1,2,3,4,5,6,7,8,9,25,4,7,8,5,6,8,35,14,78,2};
 
 	maxHeapInit(&h);
 	insert(&h, 170);
@@ -42,6 +43,13 @@ int main(){
 	printf("\nRemoving 150 from heap...\n");
 	remove(&h, 7);
 	printHeap(&h);
+
+	heapsort(arr, 20);
+
+	printf("\n");
+	for (int i = 0; i < 20; i++){
+		printf("arr[%d]: %d\n", i, arr[i]);
+	}
 
 	printf("\n\nHeap at the end of program:\n");
 	printHeap(&h);
